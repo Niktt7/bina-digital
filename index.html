@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bina Digital — Smart Automation for Bali Businesses</title>
+    <meta name="description"
+        content="Custom bots, dashboards, and automation for expat businesses on Bali. Built fast. Priced fair. Zero fluff.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #22223a;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --accent-glow: rgba(108, 92, 231, 0.3);
+            --green: #00b894;
+            --green-glow: rgba(0, 184, 148, 0.2);
+            --orange: #fdcb6e;
+            --red: #ff6b6b;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-dim: #55556a;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-accent: rgba(108, 92, 231, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: white !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-light) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border-accent);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            margin-bottom: 2rem;
+            z-index: 1;
+            background: rgba(108, 92, 231, 0.08);
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            z-index: 1;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            z-index: 1;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            z-index: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--green));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .service-price {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.3rem 0.8rem;
+            background: var(--green-glow);
+            color: var(--green);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 auto 1.2rem;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== SPEED DEMO ===== */
+        .speed-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+
+        .speed-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--green));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid var(--bg-secondary);
+        }
+
+        .timeline-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+        }
+
+        .timeline-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .timeline-text strong {
+            color: var(--text-primary);
+        }
+
+        /* ===== TESTIMONIAL ===== */
+        .quote-section {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .big-quote {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 1;
+            position: relative;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-whatsapp:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.8rem 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats-bar {
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .speed-section {
+                padding: 2rem 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-preview {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-preview-inner {
+            width: 100%;
+            height: 300%;
+            transform: scale(0.5);
+            transform-origin: top left;
+            pointer-events: none;
+            border: none;
+        }
+
+        .portfolio-preview-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(10, 10, 15, 0.9) 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-card:hover .portfolio-preview-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-preview-btn {
+            padding: 0.5rem 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .portfolio-preview-btn:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+        }
+
+        .portfolio-info {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .portfolio-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .portfolio-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .portfolio-tech {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-tech span {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">⚡ Bina Digital</div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#how">How it Works</a>
+            <a href="#speed">Speed</a>
+            <a href="#work">Our Work</a>
+            <a href="https://wa.me/6281353504430" class="nav-cta" target="_blank">Let's Talk →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="dot"></span>
+            Based in Bali · Built for your business
+        </div>
+        <h1>
+            Stop doing<br>
+            <span class="gradient">robot work</span><br>
+            manually.
+        </h1>
+        <p>
+            Custom bots, smart dashboards, and workflow automation that saves you hours every week. Built fast. Priced
+            fair. Zero fluff.
+        </p>
+        <div class="hero-buttons">
+            <a href="https://wa.me/6281353504430" class="btn-primary">Get a Free Quote →</a>
+            <a href="#services" class="btn-secondary">See What We Build</a>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-number">24h</div>
+            <div class="stat-label">Average delivery for v1</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">$300</div>
+            <div class="stat-label">Starting price</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Monthly subscriptions</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Your bot never sleeps</div>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services" class="fade-in">
+        <div class="section-tag">// what we build</div>
+        <h2 class="section-title">AI that works while you surf</h2>
+        <p class="section-subtitle">Each solution is custom-built for your business. No templates, no generic SaaS. Your
+            business, your bot.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>Review & Chat Bots</h3>
+                <p>Auto-respond to customer reviews on Google, TripAdvisor, or Tokopedia. Smart, polite, on-brand — in
+                    Bahasa or English.</p>
+                <span class="service-price">from $300</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Business Dashboards</h3>
+                <p>See your revenue, costs, profit margins, and trends on one screen. Real-time. From your phone. No
+                    spreadsheets.</p>
+                <span class="service-price">from $500</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🛒</div>
+                <h3>Marketplace AI</h3>
+                <p>Automated pricing, competitor monitoring, and listing optimization for Tokopedia, Shopee, or any
+                    marketplace.</p>
+                <span class="service-price">from $800</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Workflow Automation</h3>
+                <p>Connect your tools: WhatsApp → Google Sheets → CRM → Invoice. One trigger, zero manual work.</p>
+                <span class="service-price">from $400</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>AI Ad Optimization</h3>
+                <p>Smart bidding for your marketplace ads. AI keeps your ad spend under control and maximizes every
+                    dollar.</p>
+                <span class="service-price">from $600</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Custom Anything</h3>
+                <p>Got a weird, specific problem? We love those. Tell us what eats your time — we'll automate it.</p>
+                <span class="service-price">let's talk</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="fade-in">
+        <div class="section-tag">// how it works</div>
+        <h2 class="section-title">Three steps. That's it.</h2>
+        <p class="section-subtitle">No endless meetings. No 200-page proposals. We build fast because speed is in our
+            DNA.</p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Tell us the problem</h3>
+                <p>15-min WhatsApp call. You tell us what eats your time. We tell you if AI can fix it.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>We build a prototype</h3>
+                <p>Usually within 24-48 hours. You test it. We adjust. Fast iterations, not months of planning.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Ship & support</h3>
+                <p>You get the working solution + 30 days of free support. It's yours. No monthly fees to us.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEED DEMO -->
+    <div class="speed-section fade-in" id="speed">
+        <h3>⚡ Real example: Meeting Bot</h3>
+        <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2rem; font-size: 0.95rem;">
+            A factory owner needed a bot to transcribe team meetings and flag missed topics. Here's how it went:
+        </p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">Thursday, 18:00</div>
+                <div class="timeline-text"><strong>Request received</strong> — "I need a bot that analyzes our daily
+                    stand-ups"</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">Thursday, 23:00</div>
+                <div class="timeline-text"><strong>v1 deployed</strong> — Telegram bot with AI transcription + 6 meeting
+                    templates</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">Friday, 09:00</div>
+                <div class="timeline-text"><strong>Client feedback</strong> — "Can you add custom instructions?"</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">Friday, 14:00</div>
+                <div class="timeline-text"><strong>v2 shipped</strong> — All features added, running on client's server
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; color: var(--green); font-weight: 600;">
+            Request → Working product: under 24 hours 🚀
+        </p>
+    </div>
+
+    <!-- PORTFOLIO -->
+    <section id="work" class="fade-in">
+        <div class="section-tag">// our work</div>
+        <h2 class="section-title">Don't take our word for it. See it.</h2>
+        <p class="section-subtitle">Interactive demos you can click through right now. This is what we build.</p>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-card">
+                <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a1a2e, #0a0a0f);">
+                    <div
+                        style="padding: 1.2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;">
+                        <div style="font-size: 2.5rem;">☕</div>
+                        <div
+                            style="font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-light), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            Sunrise Café Bali</div>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.3rem;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">Rp 8.4M
+                                </div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Revenue</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--green);">127</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Orders</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--orange);">34.2%</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Margin</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-preview-overlay">
+                        <a href="demos/cafe_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo
+                            →</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <div class="portfolio-tag">Dashboard</div>
+                    <h3>Café Business Dashboard</h3>
+                    <p>Real-time revenue, orders, cost breakdown, peak hours heatmap, and top-selling items — all on one
+                        screen.</p>
+                    <div class="portfolio-tech">
+                        <span>real-time</span>
+                        <span>mobile</span>
+                        <span>charts</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a1a2e, #0a0a0f);">
+                    <div
+                        style="padding: 1.2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;">
+                        <div style="font-size: 2.5rem;">🏡</div>
+                        <div
+                            style="font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, var(--orange), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            Paradise Villas Bali</div>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.3rem;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--green-light);">87%</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Occupancy</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">$18.4K
+                                </div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Revenue</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--orange);">4.8★</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-preview-overlay">
+                        <a href="demos/villa_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo
+                            →</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <div class="portfolio-tag">Dashboard</div>
+                    <h3>Villa Management Dashboard</h3>
+                    <p>Occupancy calendar, property status, bookings from Airbnb/Booking.com, revenue by source, and
+                        guest reviews.</p>
+                    <div class="portfolio-tech">
+                        <span>calendar</span>
+                        <span>multi-property</span>
+                        <span>reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a1a2e, #0a0a0f);">
+                    <div
+                        style="padding: 1.2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;">
+                        <div style="font-size: 2.5rem;">🤖</div>
+                        <div
+                            style="font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-light), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            AI Review Bot</div>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.3rem;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--green);">12</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Reviews</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">1.2s</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Avg time</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--orange);">Auto</div>
+                                <div style="font-size: 0.6rem; color: var(--text-dim);">Mode</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-preview-overlay">
+                        <a href="demos/review_bot_demo.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo
+                            →</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <div class="portfolio-tag">AI Bot</div>
+                    <h3>Review Auto-Responder</h3>
+                    <p>AI bot that reads customer reviews and generates unique, on-brand responses. Handles 12 reviews
+                        in under 2 minutes.</p>
+                    <div class="portfolio-tech">
+                        <span>AI</span>
+                        <span>multi-lang</span>
+                        <span>auto-flag</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="quote-section fade-in">
+        <p class="big-quote">
+            "Most agencies spend 3 weeks writing proposals. These guys spend 3 weeks building products."
+        </p>
+        <p class="quote-author">— How we think about speed</p>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Ready to automate<br>the boring stuff?</h2>
+        <p>Tell us what takes too long. We'll tell you how AI can help — for free.</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/6281353504430?text=Hi!%20I%20have%20a%20business%20on%20Bali%20and%20need%20help%20with%20automation"
+                class="btn-whatsapp">
+                💬 WhatsApp Us
+            </a>
+            <a href="https://instagram.com/bina.digital.bali" class="btn-secondary" target="_blank">
+                📸 @bina.digital.bali
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="#services">Services</a>
+            <a href="#how">Process</a>
+            <a href="https://wa.me/6281353504430">Contact</a>
+        </div>
+        <p>© 2026 PT Bina Sukses Capital · Bali, Indonesia · KBLI 62019</p>
+    </footer>
+
+    <!-- SCROLL ANIMATIONS -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>

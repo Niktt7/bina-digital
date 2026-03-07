@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise Café Bali — Business Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #22223a;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --accent-glow: rgba(108, 92, 231, 0.15);
+            --green: #00b894;
+            --green-light: #55efc4;
+            --green-glow: rgba(0, 184, 148, 0.15);
+            --orange: #fdcb6e;
+            --orange-glow: rgba(253, 203, 110, 0.15);
+            --red: #ff6b6b;
+            --red-glow: rgba(255, 107, 107, 0.15);
+            --blue: #74b9ff;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-dim: #55556a;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            font-size: 1.5rem;
+        }
+
+        .header-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid rgba(0, 184, 148, 0.3);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--green);
+            background: var(--green-glow);
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.4);
+            }
+
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 0 6px rgba(0, 184, 148, 0);
+            }
+        }
+
+        .header-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Main layout */
+        .dashboard {
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* KPI Row */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .kpi-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .kpi-card.revenue::after {
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        .kpi-card.orders::after {
+            background: linear-gradient(90deg, var(--green), var(--green-light));
+        }
+
+        .kpi-card.avg-bill::after {
+            background: linear-gradient(90deg, var(--orange), #ffeaa7);
+        }
+
+        .kpi-card.margin::after {
+            background: linear-gradient(90deg, var(--blue), #81ecec);
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .kpi-card.revenue .kpi-value {
+            color: var(--accent-light);
+        }
+
+        .kpi-card.orders .kpi-value {
+            color: var(--green-light);
+        }
+
+        .kpi-card.avg-bill .kpi-value {
+            color: var(--orange);
+        }
+
+        .kpi-card.margin .kpi-value {
+            color: var(--blue);
+        }
+
+        .kpi-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .kpi-change.up {
+            color: var(--green);
+            background: var(--green-glow);
+        }
+
+        .kpi-change.down {
+            color: var(--red);
+            background: var(--red-glow);
+        }
+
+        /* Charts row */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        /* Revenue chart (CSS bars) */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 180px;
+            padding-top: 20px;
+        }
+
+        .bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bar {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            min-height: 4px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .bar:hover {
+            filter: brightness(1.3);
+        }
+
+        .bar.revenue-bar {
+            background: linear-gradient(to top, var(--accent), var(--accent-light));
+        }
+
+        .bar.cost-bar {
+            background: rgba(255, 107, 107, 0.4);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .bar-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .bar-wrapper {
+            display: flex;
+            gap: 3px;
+            width: 100%;
+            align-items: flex-end;
+            height: 100%;
+        }
+
+        .bar-col {
+            flex: 1;
+        }
+
+        /* Donut chart (CSS) */
+        .donut-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .donut {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            position: relative;
+            background: conic-gradient(var(--accent-light) 0deg 126deg,
+                    var(--green) 126deg 212deg,
+                    var(--orange) 212deg 280deg,
+                    var(--red) 280deg 324deg,
+                    var(--blue) 324deg 360deg);
+        }
+
+        .donut-hole {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .donut-center-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .donut-center-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .donut-legend {
+            width: 100%;
+        }
+
+        .legend-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+        }
+
+        .legend-item:last-child {
+            border-bottom: none;
+        }
+
+        .legend-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+        }
+
+        .legend-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* Bottom row */
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Top items */
+        .top-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .top-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0.8rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .top-item:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .top-item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .top-item-rank {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            width: 20px;
+        }
+
+        .top-item-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .top-item-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--green);
+        }
+
+        .top-item-units {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+        }
+
+        /* Hour heatmap */
+        .heatmap {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 4px;
+        }
+
+        .heat-cell {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-dim);
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .heat-cell:hover {
+            transform: scale(1.15);
+        }
+
+        .heat-0 {
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .heat-1 {
+            background: rgba(108, 92, 231, 0.15);
+            color: var(--text-secondary);
+        }
+
+        .heat-2 {
+            background: rgba(108, 92, 231, 0.3);
+            color: var(--text-primary);
+        }
+
+        .heat-3 {
+            background: rgba(108, 92, 231, 0.5);
+            color: white;
+        }
+
+        .heat-4 {
+            background: rgba(108, 92, 231, 0.75);
+            color: white;
+            font-weight: 600;
+        }
+
+        .heat-5 {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        .heat-labels {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .heat-label {
+            text-align: center;
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Staff card */
+        .staff-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .staff-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.8rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .staff-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .staff-role {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .staff-status {
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .staff-status.on {
+            color: var(--green);
+            background: var(--green-glow);
+        }
+
+        .staff-status.off {
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Powered by badge */
+        .powered-by {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+
+        .powered-by a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .bar-chart {
+                height: 140px;
+            }
+        }
+
+        /* Animated entrance */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-row .kpi-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .kpi-row .kpi-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .kpi-row .kpi-card:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .kpi-row .kpi-card:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .charts-row .chart-card:nth-child(1) {
+            animation-delay: 0.25s;
+        }
+
+        .charts-row .chart-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .bottom-row .chart-card:nth-child(1) {
+            animation-delay: 0.35s;
+        }
+
+        .bottom-row .chart-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .bottom-row .chart-card:nth-child(3) {
+            animation-delay: 0.45s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-logo">☕</div>
+            <div>
+                <div class="header-title">Sunrise Café Bali</div>
+                <div class="header-subtitle">Canggu · Business Dashboard</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                Live Data
+            </div>
+            <div class="header-date" id="currentDate"></div>
+        </div>
+    </div>
+
+    <div class="dashboard">
+
+        <!-- KPI ROW -->
+        <div class="kpi-row">
+            <div class="kpi-card revenue animate-in">
+                <div class="kpi-label">Today's Revenue</div>
+                <div class="kpi-value" id="todayRevenue">Rp 8,450,000</div>
+                <div class="kpi-change up">↑ 12.3% vs yesterday</div>
+            </div>
+            <div class="kpi-card orders animate-in">
+                <div class="kpi-label">Orders Today</div>
+                <div class="kpi-value">127</div>
+                <div class="kpi-change up">↑ 8 more than average</div>
+            </div>
+            <div class="kpi-card avg-bill animate-in">
+                <div class="kpi-label">Avg. Bill</div>
+                <div class="kpi-value">Rp 66,500</div>
+                <div class="kpi-change up">↑ 4.7% this week</div>
+            </div>
+            <div class="kpi-card margin animate-in">
+                <div class="kpi-label">Net Margin</div>
+                <div class="kpi-value">34.2%</div>
+                <div class="kpi-change down">↓ 1.1% vs last month</div>
+            </div>
+        </div>
+
+        <!-- CHARTS ROW -->
+        <div class="charts-row">
+            <div class="chart-card animate-in">
+                <div class="chart-title">
+                    Weekly Revenue vs Costs
+                    <span class="chart-period">Mar 1 – Mar 7</span>
+                </div>
+                <div class="bar-chart">
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 65%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 40%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Mon</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 72%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 42%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Tue</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 58%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 38%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Wed</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 80%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Thu</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 95%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 48%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Fri</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 100%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Sat</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-wrapper">
+                            <div class="bar-col">
+                                <div class="bar revenue-bar" style="height: 88%"></div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar cost-bar" style="height: 46%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-label">Sun</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1.5rem; margin-top: 1rem; font-size: 0.75rem; color: var(--text-dim);">
+                    <span><span
+                            style="display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:2px;margin-right:4px;"></span>
+                        Revenue</span>
+                    <span><span
+                            style="display:inline-block;width:10px;height:10px;background:rgba(255,107,107,0.4);border:1px solid rgba(255,107,107,0.3);border-radius:2px;margin-right:4px;"></span>
+                        Costs (COGS + Ops)</span>
+                </div>
+            </div>
+
+            <div class="chart-card animate-in">
+                <div class="chart-title">Revenue by Category</div>
+                <div class="donut-container">
+                    <div class="donut">
+                        <div class="donut-hole">
+                            <div class="donut-center-value">Rp 52.8M</div>
+                            <div class="donut-center-label">This Week</div>
+                        </div>
+                    </div>
+                    <div class="donut-legend">
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="legend-dot" style="background: var(--accent-light);"></div>
+                                <span>Coffee & Espresso</span>
+                            </div>
+                            <span class="legend-value">35%</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="legend-dot" style="background: var(--green);"></div>
+                                <span>Food & Bowls</span>
+                            </div>
+                            <span class="legend-value">24%</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="legend-dot" style="background: var(--orange);"></div>
+                                <span>Smoothies & Juice</span>
+                            </div>
+                            <span class="legend-value">19%</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="legend-dot" style="background: var(--red);"></div>
+                                <span>Pastries</span>
+                            </div>
+                            <span class="legend-value">12%</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="legend-dot" style="background: var(--blue);"></div>
+                                <span>Retail & Merch</span>
+                            </div>
+                            <span class="legend-value">10%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="bottom-row">
+            <div class="chart-card animate-in">
+                <div class="chart-title">Top Sellers Today</div>
+                <div class="top-items">
+                    <div class="top-item">
+                        <div class="top-item-left">
+                            <span class="top-item-rank">#1</span>
+                            <span class="top-item-name">Iced Oat Latte</span>
+                        </div>
+                        <span class="top-item-units">34 sold</span>
+                    </div>
+                    <div class="top-item">
+                        <div class="top-item-left">
+                            <span class="top-item-rank">#2</span>
+                            <span class="top-item-name">Açaí Bowl</span>
+                        </div>
+                        <span class="top-item-units">28 sold</span>
+                    </div>
+                    <div class="top-item">
+                        <div class="top-item-left">
+                            <span class="top-item-rank">#3</span>
+                            <span class="top-item-name">Flat White</span>
+                        </div>
+                        <span class="top-item-units">22 sold</span>
+                    </div>
+                    <div class="top-item">
+                        <div class="top-item-left">
+                            <span class="top-item-rank">#4</span>
+                            <span class="top-item-name">Green Smoothie</span>
+                        </div>
+                        <span class="top-item-units">19 sold</span>
+                    </div>
+                    <div class="top-item">
+                        <div class="top-item-left">
+                            <span class="top-item-rank">#5</span>
+                            <span class="top-item-name">Banana Pancakes</span>
+                        </div>
+                        <span class="top-item-units">16 sold</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card animate-in">
+                <div class="chart-title">
+                    Busiest Hours
+                    <span class="chart-period">Today</span>
+                </div>
+                <div class="heatmap">
+                    <div class="heat-cell heat-0">7</div>
+                    <div class="heat-cell heat-2">8</div>
+                    <div class="heat-cell heat-4">9</div>
+                    <div class="heat-cell heat-5">10</div>
+                    <div class="heat-cell heat-4">11</div>
+                    <div class="heat-cell heat-3">12</div>
+                    <div class="heat-cell heat-3">13</div>
+                    <div class="heat-cell heat-2">14</div>
+                    <div class="heat-cell heat-1">15</div>
+                    <div class="heat-cell heat-3">16</div>
+                    <div class="heat-cell heat-4">17</div>
+                    <div class="heat-cell heat-2">18</div>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Peak Hour</span>
+                        <span
+                            style="font-family: 'JetBrains Mono'; font-size: 0.85rem; font-weight: 600; color: var(--accent-light);">10:00
+                            — 23 orders</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Slowest Hour</span>
+                        <span style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: var(--text-dim);">15:00 —
+                            4 orders</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Avg per Hour</span>
+                        <span
+                            style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: var(--text-secondary);">10.6
+                            orders</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card animate-in">
+                <div class="chart-title">Team On Shift</div>
+                <div class="staff-row">
+                    <div class="staff-member">
+                        <div>
+                            <div class="staff-name">Made Surya</div>
+                            <div class="staff-role">Head Barista</div>
+                        </div>
+                        <span class="staff-status on">● On shift</span>
+                    </div>
+                    <div class="staff-member">
+                        <div>
+                            <div class="staff-name">Ayu Pratiwi</div>
+                            <div class="staff-role">Kitchen Lead</div>
+                        </div>
+                        <span class="staff-status on">● On shift</span>
+                    </div>
+                    <div class="staff-member">
+                        <div>
+                            <div class="staff-name">Kadek Wira</div>
+                            <div class="staff-role">Barista</div>
+                        </div>
+                        <span class="staff-status on">● On shift</span>
+                    </div>
+                    <div class="staff-member">
+                        <div>
+                            <div class="staff-name">Putu Eka</div>
+                            <div class="staff-role">Server</div>
+                        </div>
+                        <span class="staff-status on">● On shift</span>
+                    </div>
+                    <div class="staff-member">
+                        <div>
+                            <div class="staff-name">Wayan Dian</div>
+                            <div class="staff-role">Barista</div>
+                        </div>
+                        <span class="staff-status off">○ Off today</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        Built by <a href="#">Bina Digital</a> ⚡ Custom dashboards for Bali businesses
+    </div>
+
+    <script>
+        // Update date
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+
+        // Simulate live revenue updates
+        let revenue = 8450000;
+        setInterval(() => {
+            const addition = Math.floor(Math.random() * 85000) + 25000;
+            revenue += addition;
+            const formatted = 'Rp ' + revenue.toLocaleString('id-ID');
+            document.getElementById('todayRevenue').textContent = formatted;
+        }, 4000);
+    </script>
+
+</body>
+
+</html>

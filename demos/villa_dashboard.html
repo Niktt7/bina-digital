@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise Villas Bali — Management Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #22223a;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --accent-glow: rgba(108, 92, 231, 0.15);
+            --green: #00b894;
+            --green-light: #55efc4;
+            --green-glow: rgba(0, 184, 148, 0.15);
+            --orange: #fdcb6e;
+            --orange-glow: rgba(253, 203, 110, 0.15);
+            --red: #ff6b6b;
+            --red-glow: rgba(255, 107, 107, 0.15);
+            --blue: #74b9ff;
+            --blue-glow: rgba(116, 185, 255, 0.15);
+            --teal: #81ecec;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-dim: #55556a;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+
+        .header-logo { font-size: 1.5rem; }
+
+        .header-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--orange), var(--green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-subtitle { font-size: 0.8rem; color: var(--text-dim); }
+
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+
+        .live-badge {
+            display: flex; align-items: center; gap: 0.4rem;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid rgba(0, 184, 148, 0.3);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--green);
+            background: var(--green-glow);
+        }
+
+        .live-dot {
+            width: 6px; height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.4); }
+            50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(0, 184, 148, 0); }
+        }
+
+        .header-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Dashboard */
+        .dashboard { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
+
+        /* KPI Row */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .kpi-card:hover { border-color: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .kpi-card.occupancy::after { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+        .kpi-card.revenue::after { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+        .kpi-card.rating::after { background: linear-gradient(90deg, var(--orange), #ffeaa7); }
+        .kpi-card.bookings::after { background: linear-gradient(90deg, var(--blue), var(--teal)); }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+
+        .kpi-card.occupancy .kpi-value { color: var(--green-light); }
+        .kpi-card.revenue .kpi-value { color: var(--accent-light); }
+        .kpi-card.rating .kpi-value { color: var(--orange); }
+        .kpi-card.bookings .kpi-value { color: var(--blue); }
+
+        .kpi-change {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem; font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .kpi-change.up { color: var(--green); background: var(--green-glow); }
+        .kpi-change.down { color: var(--red); background: var(--red-glow); }
+
+        /* Charts Row */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 0.95rem; font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .chart-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        /* Occupancy Calendar */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-header {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.3rem 0;
+            font-weight: 600;
+        }
+
+        .cal-day {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: default;
+            position: relative;
+        }
+
+        .cal-day:hover { transform: scale(1.1); }
+
+        .cal-day.booked {
+            background: var(--green-glow);
+            color: var(--green-light);
+            border: 1px solid rgba(0, 184, 148, 0.2);
+        }
+
+        .cal-day.partial {
+            background: var(--orange-glow);
+            color: var(--orange);
+            border: 1px solid rgba(253, 203, 110, 0.2);
+        }
+
+        .cal-day.empty {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-dim);
+            border: 1px solid transparent;
+        }
+
+        .cal-day.today {
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .cal-day-sub {
+            font-size: 0.5rem;
+            opacity: 0.7;
+            margin-top: 1px;
+        }
+
+        /* Villa List */
+        .villa-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+        .villa-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.8rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .villa-item:hover { background: var(--bg-card-hover); }
+
+        .villa-left { display: flex; align-items: center; gap: 0.8rem; }
+
+        .villa-avatar {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .villa-name { font-size: 0.9rem; font-weight: 600; }
+        .villa-type { font-size: 0.7rem; color: var(--text-dim); }
+
+        .villa-status {
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .villa-status.occupied { color: var(--green); background: var(--green-glow); }
+        .villa-status.vacant { color: var(--orange); background: var(--orange-glow); }
+        .villa-status.maintenance { color: var(--red); background: var(--red-glow); }
+
+        /* Bottom Row */
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Revenue bars */
+        .revenue-bars { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .rev-bar-item { display: flex; align-items: center; gap: 0.8rem; }
+
+        .rev-bar-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            width: 40px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .rev-bar-track {
+            flex: 1; height: 24px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .rev-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; align-items: center;
+            padding-left: 8px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Recent bookings */
+        .booking-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .booking-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 0.8rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .booking-guest { font-size: 0.85rem; font-weight: 500; }
+        .booking-dates { font-size: 0.7rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+
+        .booking-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--green);
+        }
+
+        .booking-platform {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-align: right;
+        }
+
+        /* Guest ratings */
+        .ratings-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+        .rating-item {
+            padding: 0.7rem 0.8rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .rating-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .rating-guest { font-size: 0.85rem; font-weight: 500; }
+
+        .rating-stars { font-size: 0.75rem; color: var(--orange); }
+
+        .rating-text {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .rating-date { font-size: 0.65rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+        /* Powered by */
+        .powered-by {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+
+        .powered-by a { color: var(--accent-light); text-decoration: none; }
+        .powered-by a:hover { text-decoration: underline; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .charts-row { grid-template-columns: 1fr; }
+            .bottom-row { grid-template-columns: 1fr; }
+            .dashboard { padding: 1rem; }
+            .header { padding: 1rem; }
+        }
+
+        /* Animations */
+        .animate-in {
+            opacity: 0; transform: translateY(20px);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .kpi-row .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+        .kpi-row .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+        .kpi-row .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+        .kpi-row .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+        .charts-row .chart-card:nth-child(1) { animation-delay: 0.25s; }
+        .charts-row .chart-card:nth-child(2) { animation-delay: 0.3s; }
+        .bottom-row .chart-card:nth-child(1) { animation-delay: 0.35s; }
+        .bottom-row .chart-card:nth-child(2) { animation-delay: 0.4s; }
+        .bottom-row .chart-card:nth-child(3) { animation-delay: 0.45s; }
+
+        /* Legend */
+        .cal-legend {
+            display: flex; gap: 1rem; margin-top: 0.8rem;
+            justify-content: center; flex-wrap: wrap;
+        }
+
+        .cal-legend-item {
+            display: flex; align-items: center; gap: 0.4rem;
+            font-size: 0.7rem; color: var(--text-dim);
+        }
+
+        .cal-legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-logo">🏡</div>
+            <div>
+                <div class="header-title">Paradise Villas Bali</div>
+                <div class="header-subtitle">Canggu · Property Management</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                Live Data
+            </div>
+            <div class="header-date" id="currentDate"></div>
+        </div>
+    </div>
+
+    <div class="dashboard">
+
+        <!-- KPI ROW -->
+        <div class="kpi-row">
+            <div class="kpi-card occupancy animate-in">
+                <div class="kpi-label">Occupancy Rate</div>
+                <div class="kpi-value">87%</div>
+                <div class="kpi-change up">↑ 12% vs last month</div>
+            </div>
+            <div class="kpi-card revenue animate-in">
+                <div class="kpi-label">Monthly Revenue</div>
+                <div class="kpi-value">$18,450</div>
+                <div class="kpi-change up">↑ 22% vs last month</div>
+            </div>
+            <div class="kpi-card rating animate-in">
+                <div class="kpi-label">Guest Rating</div>
+                <div class="kpi-value">4.8 ★</div>
+                <div class="kpi-change up">↑ 0.2 vs last quarter</div>
+            </div>
+            <div class="kpi-card bookings animate-in">
+                <div class="kpi-label">Upcoming Bookings</div>
+                <div class="kpi-value">14</div>
+                <div class="kpi-change up">↑ 5 new this week</div>
+            </div>
+        </div>
+
+        <!-- CHARTS ROW -->
+        <div class="charts-row">
+            <div class="chart-card animate-in">
+                <div class="chart-title">
+                    Occupancy Calendar — March 2026
+                    <span class="chart-period">5 villas · 31 days</span>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Generated by JS -->
+                </div>
+                <div class="cal-legend">
+                    <div class="cal-legend-item">
+                        <div class="cal-legend-dot" style="background: var(--green-glow); border: 1px solid rgba(0,184,148,0.3);"></div>
+                        Fully Booked
+                    </div>
+                    <div class="cal-legend-item">
+                        <div class="cal-legend-dot" style="background: var(--orange-glow); border: 1px solid rgba(253,203,110,0.3);"></div>
+                        Partial
+                    </div>
+                    <div class="cal-legend-item">
+                        <div class="cal-legend-dot" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);"></div>
+                        Available
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card animate-in">
+                <div class="chart-title">Properties</div>
+                <div class="villa-list">
+                    <div class="villa-item">
+                        <div class="villa-left">
+                            <div class="villa-avatar" style="background: var(--green-glow);">🌴</div>
+                            <div>
+                                <div class="villa-name">Villa Sunset</div>
+                                <div class="villa-type">3BR Pool · Berawa</div>
+                            </div>
+                        </div>
+                        <div class="villa-status occupied">Occupied</div>
+                    </div>
+                    <div class="villa-item">
+                        <div class="villa-left">
+                            <div class="villa-avatar" style="background: var(--green-glow);">🌊</div>
+                            <div>
+                                <div class="villa-name">Villa Ocean</div>
+                                <div class="villa-type">2BR Beachfront · Echo</div>
+                            </div>
+                        </div>
+                        <div class="villa-status occupied">Occupied</div>
+                    </div>
+                    <div class="villa-item">
+                        <div class="villa-left">
+                            <div class="villa-avatar" style="background: var(--orange-glow);">🌺</div>
+                            <div>
+                                <div class="villa-name">Villa Frangipani</div>
+                                <div class="villa-type">4BR Garden · Pererenan</div>
+                            </div>
+                        </div>
+                        <div class="villa-status vacant">Vacant</div>
+                    </div>
+                    <div class="villa-item">
+                        <div class="villa-left">
+                            <div class="villa-avatar" style="background: var(--green-glow);">🏖</div>
+                            <div>
+                                <div class="villa-name">Villa Coral</div>
+                                <div class="villa-type">2BR Pool · Batu Bolong</div>
+                            </div>
+                        </div>
+                        <div class="villa-status occupied">Occupied</div>
+                    </div>
+                    <div class="villa-item">
+                        <div class="villa-left">
+                            <div class="villa-avatar" style="background: var(--red-glow);">🔧</div>
+                            <div>
+                                <div class="villa-name">Villa Bamboo</div>
+                                <div class="villa-type">1BR Studio · Canggu</div>
+                            </div>
+                        </div>
+                        <div class="villa-status maintenance">Maintenance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="bottom-row">
+            <div class="chart-card animate-in">
+                <div class="chart-title">
+                    Revenue by Source
+                    <span class="chart-period">March 2026</span>
+                </div>
+                <div class="revenue-bars">
+                    <div class="rev-bar-item">
+                        <div class="rev-bar-label">Airbnb</div>
+                        <div class="rev-bar-track">
+                            <div class="rev-bar-fill" style="width: 45%; background: linear-gradient(90deg, #FF5A5F, #FF385C);">$8,300</div>
+                        </div>
+                    </div>
+                    <div class="rev-bar-item">
+                        <div class="rev-bar-label">Book.</div>
+                        <div class="rev-bar-track">
+                            <div class="rev-bar-fill" style="width: 30%; background: linear-gradient(90deg, #003580, #0071C2);">$5,535</div>
+                        </div>
+                    </div>
+                    <div class="rev-bar-item">
+                        <div class="rev-bar-label">Direct</div>
+                        <div class="rev-bar-track">
+                            <div class="rev-bar-fill" style="width: 18%; background: linear-gradient(90deg, var(--green), var(--green-light));">$3,320</div>
+                        </div>
+                    </div>
+                    <div class="rev-bar-item">
+                        <div class="rev-bar-label">Agoda</div>
+                        <div class="rev-bar-track">
+                            <div class="rev-bar-fill" style="width: 7%; background: linear-gradient(90deg, var(--accent), var(--accent-light));">$1,295</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card animate-in">
+                <div class="chart-title">
+                    Recent Bookings
+                    <span class="chart-period">Last 7 days</span>
+                </div>
+                <div class="booking-list">
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-guest">🇦🇺 James & Sarah W.</div>
+                            <div class="booking-dates">Mar 8 → Mar 15</div>
+                        </div>
+                        <div>
+                            <div class="booking-amount">$1,890</div>
+                            <div class="booking-platform">Airbnb</div>
+                        </div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-guest">🇬🇧 Mark T.</div>
+                            <div class="booking-dates">Mar 12 → Mar 19</div>
+                        </div>
+                        <div>
+                            <div class="booking-amount">$1,260</div>
+                            <div class="booking-platform">Booking.com</div>
+                        </div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-guest">🇩🇪 Müller Family</div>
+                            <div class="booking-dates">Mar 15 → Mar 22</div>
+                        </div>
+                        <div>
+                            <div class="booking-amount">$2,450</div>
+                            <div class="booking-platform">Direct</div>
+                        </div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-guest">🇺🇸 Emily Chen</div>
+                            <div class="booking-dates">Mar 18 → Mar 25</div>
+                        </div>
+                        <div>
+                            <div class="booking-amount">$1,540</div>
+                            <div class="booking-platform">Airbnb</div>
+                        </div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-guest">🇫🇷 Pierre & Léa</div>
+                            <div class="booking-dates">Mar 20 → Mar 28</div>
+                        </div>
+                        <div>
+                            <div class="booking-amount">$2,160</div>
+                            <div class="booking-platform">Agoda</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card animate-in">
+                <div class="chart-title">
+                    Latest Guest Reviews
+                    <span class="chart-period">4.8 avg</span>
+                </div>
+                <div class="ratings-list">
+                    <div class="rating-item">
+                        <div class="rating-header">
+                            <span class="rating-guest">🇦🇺 Thomas K.</span>
+                            <span class="rating-stars">★★★★★</span>
+                        </div>
+                        <div class="rating-text">"Absolutely stunning villa. The pool was perfect and staff were incredibly helpful. Best stay in Bali!"</div>
+                        <div class="rating-date">2 days ago · Villa Sunset · Airbnb</div>
+                    </div>
+                    <div class="rating-item">
+                        <div class="rating-header">
+                            <span class="rating-guest">🇬🇧 Sophie M.</span>
+                            <span class="rating-stars">★★★★★</span>
+                        </div>
+                        <div class="rating-text">"Perfect location in Canggu. Walking distance to beach and restaurants. Will definitely come back."</div>
+                        <div class="rating-date">5 days ago · Villa Ocean · Booking.com</div>
+                    </div>
+                    <div class="rating-item">
+                        <div class="rating-header">
+                            <span class="rating-guest">🇺🇸 David R.</span>
+                            <span class="rating-stars">★★★★☆</span>
+                        </div>
+                        <div class="rating-text">"Great villa, lovely garden. WiFi could be a bit faster for remote work. Overall excellent value."</div>
+                        <div class="rating-date">1 week ago · Villa Frangipani · Airbnb</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        Built by <a href="#">⚡ Bina Digital</a> · Custom dashboards for Bali businesses · <a href="https://wa.me/6281353504430">Get yours →</a>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+        });
+
+        // Generate calendar
+        const calGrid = document.getElementById('calendarGrid');
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+        // Headers
+        days.forEach(d => {
+            const h = document.createElement('div');
+            h.className = 'cal-header';
+            h.textContent = d;
+            calGrid.appendChild(h);
+        });
+
+        // March 2026 starts on Sunday (index 6 in Mon-start week)
+        const startOffset = 6;
+        const totalDays = 31;
+        const today = new Date().getDate();
+
+        // Booking data: 5 = all booked, 3-4 = partial, 0-2 = available
+        const bookings = [
+            5,5,5,5,4,5,5, // 1-7
+            5,5,3,3,5,5,5, // 8-14
+            4,5,5,5,5,3,2, // 15-21
+            0,5,5,5,5,5,4, // 22-28
+            3,5,5           // 29-31
+        ];
+
+        // Empty cells for offset
+        for (let i = 0; i < startOffset; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'cal-day';
+            calGrid.appendChild(empty);
+        }
+
+        for (let d = 1; d <= totalDays; d++) {
+            const cell = document.createElement('div');
+            const bk = bookings[d - 1] || 0;
+            let cls = 'cal-day';
+            let sub = '';
+
+            if (bk >= 5) { cls += ' booked'; sub = '5/5'; }
+            else if (bk >= 3) { cls += ' partial'; sub = bk + '/5'; }
+            else { cls += ' empty'; sub = bk + '/5'; }
+
+            if (d === today) cls += ' today';
+
+            cell.className = cls;
+            cell.innerHTML = `${d}<span class="cal-day-sub">${sub}</span>`;
+            calGrid.appendChild(cell);
+        }
+    </script>
+
+</body>
+</html>

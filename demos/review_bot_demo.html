@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Review Bot — Live Demo | Bina Digital</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #22223a;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --accent-glow: rgba(108, 92, 231, 0.15);
+            --green: #00b894;
+            --green-light: #55efc4;
+            --green-glow: rgba(0, 184, 148, 0.15);
+            --orange: #fdcb6e;
+            --orange-glow: rgba(253, 203, 110, 0.15);
+            --red: #ff6b6b;
+            --red-glow: rgba(255, 107, 107, 0.15);
+            --blue: #74b9ff;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-dim: #55556a;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            font-size: 1.5rem;
+        }
+
+        .header-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.8rem;
+        }
+
+        .stat-pill .number {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+        }
+
+        .stat-pill .number.green {
+            color: var(--green);
+        }
+
+        .stat-pill .number.orange {
+            color: var(--orange);
+        }
+
+        .stat-pill .number.red {
+            color: var(--red);
+        }
+
+        .stat-pill .number.accent {
+            color: var(--accent-light);
+        }
+
+        /* Main layout */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .panel-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        /* Reviews Panel */
+        .reviews-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        .reviews-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .reviews-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .reviews-panel::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .review-item {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .review-item.pending {
+            border-left-color: var(--orange);
+        }
+
+        .review-item.responded {
+            border-left-color: var(--green);
+        }
+
+        .review-item.processing {
+            border-left-color: var(--accent);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .review-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            background: var(--bg-card);
+        }
+
+        .review-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .review-date {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .review-stars {
+            font-size: 0.8rem;
+            color: var(--orange);
+        }
+
+        .review-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-platform {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .review-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .review-status.pending {
+            color: var(--orange);
+            background: var(--orange-glow);
+        }
+
+        .review-status.responded {
+            color: var(--green);
+            background: var(--green-glow);
+        }
+
+        .review-status.processing {
+            color: var(--accent-light);
+            background: var(--accent-glow);
+        }
+
+        /* AI Response */
+        .ai-response {
+            margin-top: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: rgba(108, 92, 231, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.15);
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ai-response.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ai-response-header {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .ai-response-text {
+            font-size: 0.83rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .ai-response-meta {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-top: 0.4rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Right panel — Controls */
+        .controls-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        /* Auto-respond button */
+        .auto-respond-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent), #5f3dc4);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auto-respond-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .auto-respond-btn:active {
+            transform: translateY(0);
+        }
+
+        .auto-respond-btn.running {
+            background: linear-gradient(135deg, var(--green), #00a383);
+            cursor: default;
+        }
+
+        .auto-respond-btn.done {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            cursor: default;
+        }
+
+        /* Progress */
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--green));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.4s;
+        }
+
+        .progress-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        /* Settings */
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .setting-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        /* Activity Log */
+        .log-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.5rem 0;
+            font-size: 0.78rem;
+        }
+
+        .log-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            min-width: 50px;
+        }
+
+        .log-text {
+            color: var(--text-secondary);
+        }
+
+        .log-text .highlight {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .log-text .name {
+            color: var(--accent-light);
+        }
+
+        /* Powered by */
+        .powered-by {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+
+        .powered-by a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        .powered-by a:hover {
+            text-decoration: underline;
+        }
+
+        /* Typing animation */
+        .typing-dots {
+            display: inline-flex;
+            gap: 3px;
+        }
+
+        .typing-dots span {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+
+            30% {
+                transform: translateY(-4px);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                gap: 0.5rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .main {
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent 0%, rgba(108, 92, 231, 0.1) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-logo">🤖</div>
+            <div>
+                <div class="header-title">AI Review Bot</div>
+                <div class="header-subtitle">Sunrise Café Bali · Google Business</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div style="font-size: 0.8rem; color: var(--text-dim);" id="currentDate"></div>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-pill">
+            📥 Pending: <span class="number orange" id="pendingCount">12</span>
+        </div>
+        <div class="stat-pill">
+            ✅ Responded: <span class="number green" id="respondedCount">0</span>
+        </div>
+        <div class="stat-pill">
+            ⏱ Avg response: <span class="number accent" id="avgTime">—</span>
+        </div>
+        <div class="stat-pill">
+            ⭐ Avg rating: <span class="number orange">4.2</span>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- Left: Reviews -->
+        <div class="reviews-panel" id="reviewsPanel">
+            <div class="panel-title">
+                Incoming Reviews
+                <span class="panel-badge" style="background: var(--orange-glow); color: var(--orange);"
+                    id="queueBadge">12 in queue</span>
+            </div>
+            <!-- Reviews will be generated by JS -->
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="controls-panel">
+            <div class="control-card animate-in" style="animation-delay: 0.1s;">
+                <div class="panel-title">Bot Controls</div>
+                <button class="auto-respond-btn" id="autoRespondBtn" onclick="startAutoRespond()">
+                    ⚡ Auto-Respond to All (12 reviews)
+                </button>
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Processing...</div>
+                </div>
+            </div>
+
+            <div class="control-card animate-in" style="animation-delay: 0.2s;">
+                <div class="panel-title">Bot Settings</div>
+                <div class="setting-row">
+                    <span class="setting-label">Tone</span>
+                    <span class="setting-value">Friendly & Professional</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">Language</span>
+                    <span class="setting-value">English + Bahasa</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">Max length</span>
+                    <span class="setting-value">150 words</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">Mention café name</span>
+                    <span class="setting-value">✅ Always</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">Negative reviews</span>
+                    <span class="setting-value">Flag for owner</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">Auto-publish</span>
+                    <span class="setting-value">After approval</span>
+                </div>
+            </div>
+
+            <div class="control-card animate-in" style="animation-delay: 0.3s;">
+                <div class="panel-title">
+                    Activity Log
+                    <span class="panel-badge"
+                        style="background: var(--bg-secondary); color: var(--text-dim);">live</span>
+                </div>
+                <div id="activityLog">
+                    <div class="log-entry">
+                        <span class="log-time">now</span>
+                        <span class="log-text">Bot ready. <span class="highlight">12 reviews</span> waiting in
+                            queue.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        Built by <a href="#">⚡ Bina Digital</a> · Custom AI bots for Bali businesses · <a
+            href="https://wa.me/6281353504430">Get yours from $300 →</a>
+    </div>
+
+    <script>
+        // Set date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+        });
+
+        // Review data
+        const reviews = [
+            { name: "Sarah M.", flag: "🇦🇺", stars: 5, text: "Best coffee in Canggu! The avocado toast was incredible and the staff was so friendly. Will definitely come back every morning.", platform: "Google", date: "2 hours ago" },
+            { name: "Takeshi K.", flag: "🇯🇵", stars: 4, text: "Good atmosphere and nice coffee. The matcha latte could be better though. Location is perfect.", platform: "Google", date: "3 hours ago" },
+            { name: "Emma L.", flag: "🇬🇧", stars: 5, text: "Absolutely love this place! Great WiFi for remote work, amazing smoothie bowls, and the sunset view is unreal.", platform: "Google", date: "5 hours ago" },
+            { name: "Budi Santoso", flag: "🇮🇩", stars: 3, text: "Tempatnya bagus tapi harga terlalu mahal untuk porsi yang kecil. Kopi nya oke sih.", platform: "Google", date: "6 hours ago" },
+            { name: "Michael R.", flag: "🇺🇸", stars: 5, text: "This place has become my daily office. Strong wifi, great cold brew, and the team remembers my order. 10/10.", platform: "Google", date: "8 hours ago" },
+            { name: "Julia W.", flag: "🇩🇪", stars: 4, text: "Really nice café with good vibes. The açaí bowl was fresh and tasty. Service was a bit slow during peak hours.", platform: "Google", date: "10 hours ago" },
+            { name: "Pierre D.", flag: "🇫🇷", stars: 2, text: "Waited 25 minutes for a simple latte. Food was okay but nothing special. Too expensive for what you get.", platform: "Google", date: "12 hours ago" },
+            { name: "Lisa van Berg", flag: "🇳🇱", stars: 5, text: "Hidden gem! The homemade banana bread is to die for. Super cozy atmosphere and friendly staff.", platform: "Google", date: "1 day ago" },
+            { name: "Rina Wijaya", flag: "🇮🇩", stars: 4, text: "Suka banget sama tempatnya! Kopinya enak, view nya juga bagus. Cuma parkir agak susah.", platform: "Google", date: "1 day ago" },
+            { name: "James T.", flag: "🇦🇺", stars: 5, text: "Just had the best breakfast of our Bali trip here. Eggs benedict was perfect. Great vibes all around!", platform: "Google", date: "1 day ago" },
+            { name: "Yuki Tanaka", flag: "🇯🇵", stars: 3, text: "Decent coffee but the music was too loud for a café. Hard to have a conversation. Food is good though.", platform: "Google", date: "2 days ago" },
+            { name: "Sophie K.", flag: "🇫🇷", stars: 5, text: "We celebrated our anniversary here and the team made it so special! The cocktails are fantastic too. Merci!", platform: "Google", date: "2 days ago" },
+        ];
+
+        // AI responses
+        const aiResponses = [
+            "Thank you so much, Sarah! 😊 We're thrilled to hear you loved our avocado toast — it's one of our favorites too! Looking forward to seeing you every morning. Your next coffee is on us! ☕ — Sunrise Café team",
+            "Thank you for visiting us, Takeshi-san! We appreciate your feedback about the matcha latte — we'll definitely work on improving it. We're glad you enjoyed the location! 🙏 — Sunrise Café",
+            "Emma, this made our day! 🌅 So happy our café is your go-to spot for remote work. Our WiFi is specifically set up for digital nomads. See you for the next sunset smoothie bowl! — Sunrise Café team",
+            "Terima kasih Pak Budi untuk feedbacknya! 🙏 Kami sangat menghargai masukannya. Kami sedang mengerjakan menu baru dengan porsi yang lebih besar. Semoga bisa mampir lagi! — Tim Sunrise Café",
+            "Michael, you're practically family at this point! 😄 We always love seeing you come in. Cold brew is already being prepped for tomorrow morning! Thanks for being an amazing regular. — Sunrise Café team",
+            "Hi Julia! Thank you for the kind words! 🌸 We're sorry about the wait during peak hours — we're adding more staff for busy times. The açaí bowls are made fresh daily just for moments like yours! — Sunrise Café",
+            "⚠️ FLAGGED FOR OWNER — Pierre, we sincerely apologize for the long wait. That's not the experience we aim for. We're addressing our service speed immediately. We'd love to make it up to you — please DM us for a complimentary visit. — Sunrise Café management",
+            "Lisa, you found us! 🍌 Our banana bread is baked fresh every morning and yes, it IS to die for! Thanks for the love, and we hope to see you back in our cozy corner soon! — Sunrise Café team",
+            "Terima kasih Rina! 😊 Senang sekali dengar kamu suka tempat kami. Soal parkir, kami rekomendasikan parkir di jalan samping (50m). Semoga bisa membantu! Sampai ketemu lagi! — Tim Sunrise Café",
+            "James, that's the best compliment we could ask for! 🍳 Our chef puts real love into those eggs benedict. We hope the rest of your Bali trip is just as amazing! — Sunrise Café team",
+            "Thank you for the honest feedback, Yuki! 🎵 We've received similar comments about the music volume — we're now implementing quieter playlists during daytime hours. Hope to welcome you back for a peaceful coffee! — Sunrise Café",
+            "Joyeux anniversaire, Sophie! 🎉 It was our absolute pleasure to be part of your celebration. Your kind words mean the world to our team. Wishing you both a lifetime of happiness! — Sunrise Café team",
+        ];
+
+        // Render reviews
+        const panel = document.getElementById('reviewsPanel');
+        const titleDiv = panel.querySelector('.panel-title');
+
+        reviews.forEach((r, i) => {
+            const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+            const div = document.createElement('div');
+            div.className = 'review-item pending';
+            div.id = `review-${i}`;
+            div.innerHTML = `
+                <div class="review-header">
+                    <div class="review-author">
+                        <div class="review-avatar">${r.flag}</div>
+                        <div>
+                            <div class="review-name">${r.name}</div>
+                            <div class="review-date">${r.date}</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">${stars}</div>
+                </div>
+                <div class="review-text">${r.text}</div>
+                <div class="review-platform">${r.platform}</div>
+                <div class="review-status pending" id="status-${i}">⏳ Pending</div>
+                <div class="ai-response" id="response-${i}">
+                    <div class="ai-response-header">🤖 AI Response</div>
+                    <div class="ai-response-text">${aiResponses[i]}</div>
+                    <div class="ai-response-meta">Generated in ${(0.8 + Math.random() * 1.5).toFixed(1)}s · tone: ${r.stars <= 2 ? 'apologetic' : 'cheerful'} · ${r.text.includes('bagus') || r.text.includes('Suka') ? 'lang: bahasa' : 'lang: english'}</div>
+                </div>
+            `;
+            panel.appendChild(div);
+        });
+
+        // Auto-respond logic
+        let isRunning = false;
+        let responded = 0;
+
+        function startAutoRespond() {
+            if (isRunning) return;
+            isRunning = true;
+
+            const btn = document.getElementById('autoRespondBtn');
+            const progress = document.getElementById('progressContainer');
+            const fill = document.getElementById('progressFill');
+            const pText = document.getElementById('progressText');
+
+            btn.className = 'auto-respond-btn running';
+            btn.innerHTML = '🔄 Processing reviews...';
+            progress.style.display = 'block';
+
+            let current = 0;
+            const total = reviews.length;
+
+            function processNext() {
+                if (current >= total) {
+                    btn.className = 'auto-respond-btn done';
+                    btn.innerHTML = '✅ All 12 reviews responded!';
+                    pText.textContent = `Done! ${total} reviews processed in ${(total * 1.5).toFixed(0)} seconds`;
+                    document.getElementById('pendingCount').textContent = '0';
+                    document.getElementById('pendingCount').className = 'number green';
+                    document.getElementById('avgTime').textContent = '1.2s';
+                    document.getElementById('queueBadge').textContent = '0 in queue';
+                    document.getElementById('queueBadge').style.background = 'var(--green-glow)';
+                    document.getElementById('queueBadge').style.color = 'var(--green)';
+
+                    addLog(`All done! <span class="highlight">${total} reviews</span> responded automatically.`);
+                    return;
+                }
+
+                const i = current;
+                const item = document.getElementById(`review-${i}`);
+                const status = document.getElementById(`status-${i}`);
+                const response = document.getElementById(`response-${i}`);
+
+                // Set processing
+                item.className = 'review-item processing';
+                status.className = 'review-status processing';
+                status.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span> Generating response...`;
+
+                addLog(`Analyzing review from <span class="name">${reviews[i].name}</span>... (${reviews[i].stars}★)`);
+
+                // Scroll to current review
+                item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                setTimeout(() => {
+                    // Set responded
+                    item.className = 'review-item responded';
+                    status.className = 'review-status responded';
+                    status.innerHTML = '✅ Responded';
+                    response.className = 'ai-response visible';
+
+                    responded++;
+                    current++;
+                    const pct = Math.round((current / total) * 100);
+                    fill.style.width = pct + '%';
+                    pText.textContent = `${current} / ${total} reviews processed (${pct}%)`;
+
+                    document.getElementById('respondedCount').textContent = responded;
+                    document.getElementById('pendingCount').textContent = total - responded;
+
+                    addLog(`✅ Responded to <span class="name">${reviews[i].name}</span> ${reviews[i].stars <= 2 ? '⚠️ <span style="color:var(--orange)">(flagged)</span>' : ''}`);
+
+                    btn.innerHTML = `🔄 Processing... (${current}/${total})`;
+
+                    setTimeout(processNext, 800 + Math.random() * 500);
+                }, 1000 + Math.random() * 800);
+            }
+
+            processNext();
+        }
+
+        function addLog(text) {
+            const log = document.getElementById('activityLog');
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-time">${time}</span><span class="log-text">${text}</span>`;
+            log.insertBefore(entry, log.children[0]);
+            if (log.children.length > 15) log.removeChild(log.lastChild);
+        }
+    </script>
+
+</body>
+
+</html>
