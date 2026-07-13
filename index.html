@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bina Digital — Smart Automation for Bali Businesses</title>
+    <title>PT Bina Sukses Capital — Technology-Driven Business Solutions & Software Development</title>
     <meta name="description"
-        content="Custom bots, dashboards, and automation for expat businesses on Bali. Built fast. Priced fair. Zero fluff.">
+        content="Custom software engineering, strategic management consultancy, and financial intelligence systems. Based in Bali, serving global markets.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -14,22 +14,22 @@
         rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a2e;
-            --bg-card-hover: #22223a;
-            --accent: #6c5ce7;
-            --accent-light: #a29bfe;
-            --accent-glow: rgba(108, 92, 231, 0.3);
-            --green: #00b894;
-            --green-glow: rgba(0, 184, 148, 0.2);
-            --orange: #fdcb6e;
-            --red: #ff6b6b;
-            --text-primary: #f0f0f5;
-            --text-secondary: #8888a0;
-            --text-dim: #55556a;
-            --border: rgba(255, 255, 255, 0.06);
-            --border-accent: rgba(108, 92, 231, 0.3);
+            --bg-primary: #07070a;
+            --bg-secondary: #0d0d14;
+            --bg-card: #131322;
+            --bg-card-hover: #19192f;
+            --accent: #5f3dc4;
+            --accent-light: #7048e8;
+            --accent-glow: rgba(95, 61, 196, 0.25);
+            --green: #0ca678;
+            --green-glow: rgba(12, 166, 120, 0.15);
+            --orange: #fcc419;
+            --red: #fa5252;
+            --text-primary: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --text-dim: #495057;
+            --border: rgba(255, 255, 255, 0.05);
+            --border-accent: rgba(95, 61, 196, 0.25);
         }
 
         * {
@@ -56,8 +56,8 @@
             top: 0;
             width: 100%;
             z-index: 100;
-            padding: 1rem 2rem;
-            background: rgba(10, 10, 15, 0.85);
+            padding: 1.2rem 2rem;
+            background: rgba(7, 7, 10, 0.8);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             display: flex;
@@ -66,12 +66,13 @@
         }
 
         .nav-logo {
-            font-weight: 800;
-            font-size: 1.3rem;
-            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            font-weight: 900;
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
 
         .nav-links {
@@ -83,7 +84,7 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: color 0.3s;
         }
@@ -103,33 +104,18 @@
 
         .nav-cta:hover {
             background: var(--accent-light) !important;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px var(--accent-glow);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
         /* ===== HERO ===== */
         .hero {
-            min-height: 100vh;
+            padding: 10rem 2rem 6rem 2rem;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(95, 61, 196, 0.08) 0%, transparent 60%);
         }
 
         .hero-badge {
@@ -137,13 +123,13 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.4rem 1rem;
-            border: 1px solid var(--border-accent);
-            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 99px;
             font-size: 0.8rem;
-            color: var(--accent-light);
+            font-weight: 500;
+            color: var(--text-secondary);
             margin-bottom: 2rem;
-            z-index: 1;
-            background: rgba(108, 92, 231, 0.08);
         }
 
         .hero-badge .dot {
@@ -151,451 +137,150 @@
             height: 6px;
             background: var(--green);
             border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.3;
-            }
+            box-shadow: 0 0 8px var(--green);
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
             font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -2px;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
             margin-bottom: 1.5rem;
-            z-index: 1;
+            max-width: 900px;
         }
 
         .hero h1 .gradient {
-            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            background: linear-gradient(135deg, var(--accent-light) 30%, var(--green) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            z-index: 1;
+            max-width: 650px;
+            margin-bottom: 3rem;
+            font-weight: 400;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            z-index: 1;
-            flex-wrap: wrap;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: white;
+        .btn {
             padding: 0.9rem 2rem;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-decoration: none;
             transition: all 0.3s;
-            border: none;
             cursor: pointer;
         }
 
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
         .btn-primary:hover {
-            background: var(--accent-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--accent-glow);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.02);
             color: var(--text-primary);
-            padding: 0.9rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
             border: 1px solid var(--border);
-            transition: all 0.3s;
         }
 
         .btn-secondary:hover {
-            border-color: var(--accent);
-            background: rgba(108, 92, 231, 0.05);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+            transform: translateY(-2px);
         }
 
-        /* ===== STATS BAR ===== */
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-light), var(--green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
-        }
-
-        /* ===== SECTIONS ===== */
+        /* ===== SERVICES / PILLARS ===== */
         section {
             padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-light);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
         }
 
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        .section-header h2 {
+            font-size: 2.2rem;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.8rem;
         }
 
-        .section-subtitle {
+        .section-header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 3rem;
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* ===== SERVICES GRID ===== */
-        .services-grid {
+        .pillars-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
-        .service-card {
-            background: var(--bg-card);
+        .pillar-card {
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), var(--green));
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .service-card:hover {
-            background: var(--bg-card-hover);
+        .pillar-card:hover {
             border-color: var(--border-accent);
             transform: translateY(-4px);
+            box-shadow: 0 10px 30px var(--accent-glow);
         }
 
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .service-price {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.3rem 0.8rem;
-            background: var(--green-glow);
-            color: var(--green);
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* ===== HOW IT WORKS ===== */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .step {
-            text-align: center;
-            padding: 2rem 1.5rem;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin: 0 auto 1.2rem;
-        }
-
-        .step h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .step p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* ===== SPEED DEMO ===== */
-        .speed-section {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 3rem;
-            margin: 3rem auto;
-            max-width: 800px;
-        }
-
-        .speed-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent), var(--green));
-        }
-
-        .timeline-item {
-            position: relative;
+        .pillar-icon {
+            font-size: 2rem;
             margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
+            display: inline-block;
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -26px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-            border: 2px solid var(--bg-secondary);
+        .pillar-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        .timeline-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--accent-light);
-        }
-
-        .timeline-text {
+        .pillar-card p {
+            color: var(--text-secondary);
             font-size: 0.95rem;
-            color: var(--text-secondary);
-        }
-
-        .timeline-text strong {
-            color: var(--text-primary);
-        }
-
-        /* ===== TESTIMONIAL ===== */
-        .quote-section {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .big-quote {
-            font-size: clamp(1.3rem, 3vw, 1.8rem);
-            font-weight: 300;
-            font-style: italic;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 1.5rem;
             line-height: 1.6;
         }
 
-        .quote-author {
-            color: var(--text-dim);
-            font-size: 0.9rem;
+        .pillar-kbli {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            background: rgba(112, 72, 232, 0.08);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 1.5rem;
         }
 
-        /* ===== CTA SECTION ===== */
-        .cta-section {
-            text-align: center;
-            padding: 6rem 2rem;
-            position: relative;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-section h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-            z-index: 1;
-            position: relative;
-        }
-
-        .cta-section p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            z-index: 1;
-            position: relative;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            z-index: 1;
-            position: relative;
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-            padding: 0.9rem 2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-whatsapp:hover {
-            background: #22c55e;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-        }
-
-        footer .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* ===== MOBILE ===== */
-        @media (max-width: 768px) {
-            nav {
-                padding: 0.8rem 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .stats-bar {
-                gap: 1.5rem;
-            }
-
-            .stat-number {
-                font-size: 1.8rem;
-            }
-
-            .speed-section {
-                padding: 2rem 1.5rem;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
-        }
-
-        /* ===== PORTFOLIO ===== */
+        /* ===== PROTOTYPES (PORTFOLIO) ===== */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -620,6 +305,7 @@
             height: 180px;
             position: relative;
             overflow: hidden;
+            background: #0d0d16;
         }
 
         .portfolio-preview-inner {
@@ -634,7 +320,7 @@
         .portfolio-preview-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 40%, rgba(10, 10, 15, 0.9) 100%);
+            background: linear-gradient(to bottom, transparent 40%, rgba(7, 7, 10, 0.95) 100%);
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -703,20 +389,94 @@
             padding: 0.2rem 0.5rem;
             background: var(--bg-secondary);
             border-radius: 4px;
-            color: var(--text-dim);
+            color: var(--text-secondary);
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* ===== ANIMATIONS ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        /* ===== CTA ===== */
+        .cta-section {
+            background: radial-gradient(circle at 50% 50%, rgba(95, 61, 196, 0.12) 0%, transparent 70%);
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
         }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .cta-section h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            padding: 0.9rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .btn-whatsapp:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
         }
     </style>
 </head>
@@ -725,351 +485,167 @@
 
     <!-- NAV -->
     <nav>
-        <div class="nav-logo">⚡ Bina Digital</div>
+        <div class="nav-logo">⚡ BINA SUKSES CAPITAL</div>
         <div class="nav-links">
-            <a href="#services">Services</a>
-            <a href="#how">How it Works</a>
-            <a href="#speed">Speed</a>
-            <a href="#work">Our Work</a>
-            <a href="https://wa.me/628133836149" class="nav-cta" target="_blank">Let's Talk →</a>
+            <a href="#about">About</a>
+            <a href="#pillars">Pillars</a>
+            <a href="#prototypes">Prototypes</a>
+            <a href="https://wa.me/628133836149" class="nav-cta" target="_blank">Inquire →</a>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="about">
         <div class="hero-badge">
             <span class="dot"></span>
-            Based in Bali · Built for your business
+            PT Bina Sukses Capital · PMA Indonesia
         </div>
         <h1>
-            Stop doing<br>
-            <span class="gradient">robot work</span><br>
-            manually.
+            Engineering <span class="gradient">efficiency</span>.<br>
+            Empowering decisions.
         </h1>
         <p>
-            Custom bots, smart dashboards, and workflow automation that saves you hours every week. Built fast. Priced
-            fair. Zero fluff.
+            Custom quantitative software, strategic management consulting, and fintech solutions built to automate complexity and drive performance.
         </p>
         <div class="hero-buttons">
-            <a href="https://wa.me/628133836149" class="btn-primary">Get a Free Quote →</a>
-            <a href="#services" class="btn-secondary">See What We Build</a>
+            <a href="#pillars" class="btn btn-primary">Core Pillars</a>
+            <a href="#prototypes" class="btn btn-secondary">Interactive Demos</a>
         </div>
     </section>
 
-    <!-- STATS -->
-    <div class="stats-bar">
-        <div class="stat">
-            <div class="stat-number">24h</div>
-            <div class="stat-label">Average delivery for v1</div>
+    <!-- PILLARS -->
+    <section id="pillars">
+        <div class="section-header">
+            <h2>Core Areas of Expertise</h2>
+            <p>Providing compliant and technology-driven operations under Indonesian business regulations.</p>
         </div>
-        <div class="stat">
-            <div class="stat-number">$300</div>
-            <div class="stat-label">Starting price</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">0</div>
-            <div class="stat-label">Monthly subscriptions</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Your bot never sleeps</div>
-        </div>
-    </div>
-
-    <!-- SERVICES -->
-    <section id="services" class="fade-in">
-        <div class="section-tag">// what we build</div>
-        <h2 class="section-title">AI that works while you surf</h2>
-        <p class="section-subtitle">Each solution is custom-built for your business. No templates, no generic SaaS. Your
-            business, your bot.</p>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🤖</div>
-                <h3>Review & Chat Bots</h3>
-                <p>Auto-respond to customer reviews on Google, TripAdvisor, or Tokopedia. Smart, polite, on-brand — in
-                    Bahasa or English.</p>
-                <span class="service-price">from $300</span>
+        <div class="pillars-grid">
+            <!-- Software Engineering -->
+            <div class="pillar-card">
+                <span class="pillar-icon">💻</span>
+                <h3>Software Development</h3>
+                <p>
+                    Designing and maintaining custom quantitative algorithms, corporate dashboards, data pipelines, and workflow automations. We build clean-room systems that replace manual overhead with high-performance bots.
+                </p>
+                <div class="pillar-kbli">KBLI 62019 · Computer Programming</div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>Business Dashboards</h3>
-                <p>See your revenue, costs, profit margins, and trends on one screen. Real-time. From your phone. No
-                    spreadsheets.</p>
-                <span class="service-price">from $500</span>
+            <!-- Management Consultancy -->
+            <div class="pillar-card">
+                <span class="pillar-icon">🧠</span>
+                <h3>Management Consulting</h3>
+                <p>
+                    Operational restructuring, local entity compliance setup, workflow architecture, and business process automation audits designed for modern enterprises navigating international environments.
+                </p>
+                <div class="pillar-kbli">KBLI 70209 · Business Consultancy</div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">🛒</div>
-                <h3>Marketplace AI</h3>
-                <p>Automated pricing, competitor monitoring, and listing optimization for Tokopedia, Shopee, or any
-                    marketplace.</p>
-                <span class="service-price">from $800</span>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">⚡</div>
-                <h3>Workflow Automation</h3>
-                <p>Connect your tools: WhatsApp → Google Sheets → CRM → Invoice. One trigger, zero manual work.</p>
-                <span class="service-price">from $400</span>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🎯</div>
-                <h3>AI Ad Optimization</h3>
-                <p>Smart bidding for your marketplace ads. AI keeps your ad spend under control and maximizes every
-                    dollar.</p>
-                <span class="service-price">from $600</span>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🔧</div>
-                <h3>Custom Anything</h3>
-                <p>Got a weird, specific problem? We love those. Tell us what eats your time — we'll automate it.</p>
-                <span class="service-price">let's talk</span>
+            <!-- Quantitative Education -->
+            <div class="pillar-card">
+                <span class="pillar-icon">📊</span>
+                <h3>Education Services</h3>
+                <p>
+                    Curating specialized training modules in quantitative trading, financial risk management frameworks, and programming for automated finance systems.
+                </p>
+                <div class="pillar-kbli">KBLI 85499 · Other Education Services</div>
             </div>
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section id="how" class="fade-in">
-        <div class="section-tag">// how it works</div>
-        <h2 class="section-title">Three steps. That's it.</h2>
-        <p class="section-subtitle">No endless meetings. No 200-page proposals. We build fast because speed is in our
-            DNA.</p>
-
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Tell us the problem</h3>
-                <p>15-min WhatsApp call. You tell us what eats your time. We tell you if AI can fix it.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>We build a prototype</h3>
-                <p>Usually within 24-48 hours. You test it. We adjust. Fast iterations, not months of planning.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Ship & support</h3>
-                <p>You get the working solution + 30 days of free support. It's yours. No monthly fees to us.</p>
-            </div>
+    <!-- PROTOTYPES (PORTFOLIO) -->
+    <section id="prototypes">
+        <div class="section-header">
+            <h2>Interactive Prototypes</h2>
+            <p>Live demonstrations of custom dashboards and bot architectures designed by our engineering team.</p>
         </div>
-    </section>
-
-    <!-- SPEED DEMO -->
-    <div class="speed-section fade-in" id="speed">
-        <h3>⚡ Real example: Meeting Bot</h3>
-        <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2rem; font-size: 0.95rem;">
-            A factory owner needed a bot to transcribe team meetings and flag missed topics. Here's how it went:
-        </p>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-time">Thursday, 18:00</div>
-                <div class="timeline-text"><strong>Request received</strong> — "I need a bot that analyzes our daily
-                    stand-ups"</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">Thursday, 23:00</div>
-                <div class="timeline-text"><strong>v1 deployed</strong> — Telegram bot with AI transcription + 6 meeting
-                    templates</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">Friday, 09:00</div>
-                <div class="timeline-text"><strong>Client feedback</strong> — "Can you add custom instructions?"</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">Friday, 14:00</div>
-                <div class="timeline-text"><strong>v2 shipped</strong> — All features added, running on client's server
-                </div>
-            </div>
-        </div>
-        <p style="text-align: center; margin-top: 2rem; color: var(--green); font-weight: 600;">
-            Request → Working product: under 24 hours 🚀
-        </p>
-    </div>
-
-    <!-- PORTFOLIO -->
-    <section id="work" class="fade-in">
-        <div class="section-tag">// our work</div>
-        <h2 class="section-title">Don't take our word for it. See it.</h2>
-        <p class="section-subtitle">Interactive demos you can click through right now. This is what we build.</p>
-
         <div class="portfolio-grid">
+            <!-- Cafe Dashboard -->
             <div class="portfolio-card">
-                <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a1a2e, #0a0a0f);">
-                    <div
-                        style="padding: 1.2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;">
-                        <div style="font-size: 2.5rem;">☕</div>
-                        <div
-                            style="font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-light), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                            Sunrise Café Bali</div>
-                        <div style="display: flex; gap: 1rem; margin-top: 0.3rem;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">Rp 8.4M
-                                </div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Revenue</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--green);">127</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Orders</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--orange);">34.2%</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Margin</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="portfolio-preview">
+                    <iframe src="demos/cafe_dashboard.html" class="portfolio-preview-inner" scrolling="no"></iframe>
                     <div class="portfolio-preview-overlay">
-                        <a href="demos/cafe_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo
-                            →</a>
+                        <a href="demos/cafe_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo</a>
                     </div>
                 </div>
                 <div class="portfolio-info">
-                    <div class="portfolio-tag">Dashboard</div>
-                    <h3>Café Business Dashboard</h3>
-                    <p>Real-time revenue, orders, cost breakdown, peak hours heatmap, and top-selling items — all on one
-                        screen.</p>
+                    <div class="portfolio-tag">IT / KBLI 62019</div>
+                    <h3>Cafe & Retail Cockpit</h3>
+                    <p>Real-time telemetry, transaction metrics, and operations dashboard for F&B establishments.</p>
                     <div class="portfolio-tech">
-                        <span>real-time</span>
-                        <span>mobile</span>
-                        <span>charts</span>
+                        <span>HTML5</span>
+                        <span>Tailwind</span>
+                        <span>Vanilla JS</span>
                     </div>
                 </div>
             </div>
 
+            <!-- Villa Dashboard -->
             <div class="portfolio-card">
-                <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a1a2e, #0a0a0f);">
-                    <div
-                        style="padding: 1.2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;">
-                        <div style="font-size: 2.5rem;">🏡</div>
-                        <div
-                            style="font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, var(--orange), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                            Paradise Villas Bali</div>
-                        <div style="display: flex; gap: 1rem; margin-top: 0.3rem;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--green-light);">87%</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Occupancy</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">$18.4K
-                                </div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Revenue</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--orange);">4.8★</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Rating</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="portfolio-preview">
+                    <iframe src="demos/villa_dashboard.html" class="portfolio-preview-inner" scrolling="no"></iframe>
                     <div class="portfolio-preview-overlay">
-                        <a href="demos/villa_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo
-                            →</a>
+                        <a href="demos/villa_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo</a>
                     </div>
                 </div>
                 <div class="portfolio-info">
-                    <div class="portfolio-tag">Dashboard</div>
-                    <h3>Villa Management Dashboard</h3>
-                    <p>Occupancy calendar, property status, bookings from Airbnb/Booking.com, revenue by source, and
-                        guest reviews.</p>
+                    <div class="portfolio-tag">IT / KBLI 62019</div>
+                    <h3>Villa Management Hub</h3>
+                    <p>Occupancy tracking, maintenance scheduling, and financial summary dashboard for properties.</p>
                     <div class="portfolio-tech">
-                        <span>calendar</span>
-                        <span>multi-property</span>
-                        <span>reviews</span>
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JS Charting</span>
                     </div>
                 </div>
             </div>
 
+            <!-- Review Bot -->
             <div class="portfolio-card">
-                <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a1a2e, #0a0a0f);">
-                    <div
-                        style="padding: 1.2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;">
-                        <div style="font-size: 2.5rem;">🤖</div>
-                        <div
-                            style="font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-light), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                            AI Review Bot</div>
-                        <div style="display: flex; gap: 1rem; margin-top: 0.3rem;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--green);">12</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Reviews</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">1.2s</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Avg time</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.2rem; font-weight: 800; color: var(--orange);">Auto</div>
-                                <div style="font-size: 0.6rem; color: var(--text-dim);">Mode</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="portfolio-preview">
+                    <iframe src="demos/review_bot_demo.html" class="portfolio-preview-inner" scrolling="no"></iframe>
                     <div class="portfolio-preview-overlay">
-                        <a href="demos/review_bot_demo.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo
-                            →</a>
+                        <a href="demos/review_bot_demo.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo</a>
                     </div>
                 </div>
                 <div class="portfolio-info">
-                    <div class="portfolio-tag">AI Bot</div>
-                    <h3>Review Auto-Responder</h3>
-                    <p>AI bot that reads customer reviews and generates unique, on-brand responses. Handles 12 reviews
-                        in under 2 minutes.</p>
+                    <div class="portfolio-tag">IT / KBLI 62019</div>
+                    <h3>AI Feedback Engine</h3>
+                    <p>Automated customer sentiment analysis and review processing console.</p>
                     <div class="portfolio-tech">
-                        <span>AI</span>
-                        <span>multi-lang</span>
-                        <span>auto-flag</span>
+                        <span>Automation</span>
+                        <span>Semantic Analysis</span>
+                        <span>JSON API</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- QUOTE -->
-    <section class="quote-section fade-in">
-        <p class="big-quote">
-            "Most agencies spend 3 weeks writing proposals. These guys spend 3 weeks building products."
-        </p>
-        <p class="quote-author">— How we think about speed</p>
     </section>
 
     <!-- CTA -->
     <section class="cta-section">
-        <h2>Ready to automate<br>the boring stuff?</h2>
-        <p>Tell us what takes too long. We'll tell you how AI can help — for free.</p>
-        <div class="cta-buttons">
-            <a href="https://wa.me/628133836149?text=Hi!%20I%20have%20a%20business%20on%20Bali%20and%20need%20help%20with%20automation"
-                class="btn-whatsapp">
-                💬 WhatsApp Us
-            </a>
-            <a href="https://instagram.com/bina.digital.bali" class="btn-secondary" target="_blank">
-                📸 @bina.digital.bali
-            </a>
-        </div>
+        <h2>Discuss Your Project</h2>
+        <p>
+            Get in touch with our team to discuss custom integrations, strategic consulting, or proprietary software projects.
+        </p>
+        <a href="https://wa.me/628133836149" class="btn-whatsapp" target="_blank">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.26C8.13 12.42 9.76 15.07 12.33 16.09C14.47 16.93 14.9 16.77 15.36 16.73C15.82 16.69 16.84 16.13 17.05 15.54C17.26 14.95 17.26 14.44 17.2 14.34C17.14 14.24 16.97 14.19 16.72 14.06C16.47 13.93 15.24 13.33 15 13.24C14.78 13.15 14.61 13.11 14.45 13.33C14.28 13.56 13.8 14.13 13.65 14.3C13.5 14.46 13.35 14.49 13.1 14.36C12.4 14 11.47 13.7 10.37 12.72C9.52 11.96 8.94 11 8.78 10.74C8.61 10.49 8.76 10.35 8.9 10.21C9.03 10.08 9.19 9.87 9.32 9.71C9.45 9.56 9.5 9.43 9.58 9.26C9.67 9.1 9.62 8.94 9.58 8.81C9.67 9.1 9.62 8.94 9.58 8.81C9.54 8.68 9.03 7.42 8.82 6.92C8.61 6.42 8.4 6.49 8.25 6.49C8.1 6.49 7.93 6.49 7.76 6.49" />
+            </svg>
+            Send WhatsApp Message
+        </a>
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="footer-links">
-            <a href="#services">Services</a>
-            <a href="#how">Process</a>
-            <a href="https://wa.me/628133836149">Contact</a>
+            <a href="#about">About</a>
+            <a href="#pillars">Pillars</a>
+            <a href="#prototypes">Prototypes</a>
             <a href="privacy.html">Privacy Policy</a>
         </div>
-        <p>© 2026 PT Bina Sukses Capital · Bali, Indonesia · KBLI 62019</p>
+        <p>© 2026 PT Bina Sukses Capital · Bali, Indonesia · KBLI 62019, 70209, 85499</p>
     </footer>
-
-    <!-- SCROLL ANIMATIONS -->
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
 
 </body>
 
