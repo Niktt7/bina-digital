@@ -1,652 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT Bina Sukses Capital — Technology-Driven Business Solutions & Software Development</title>
-    <meta name="description"
-        content="Custom software engineering, strategic management consultancy, and financial intelligence systems. Based in Bali, serving global markets.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #07070a;
-            --bg-secondary: #0d0d14;
-            --bg-card: #131322;
-            --bg-card-hover: #19192f;
-            --accent: #5f3dc4;
-            --accent-light: #7048e8;
-            --accent-glow: rgba(95, 61, 196, 0.25);
-            --green: #0ca678;
-            --green-glow: rgba(12, 166, 120, 0.15);
-            --orange: #fcc419;
-            --red: #fa5252;
-            --text-primary: #f8f9fa;
-            --text-secondary: #adb5bd;
-            --text-dim: #495057;
-            --border: rgba(255, 255, 255, 0.05);
-            --border-accent: rgba(95, 61, 196, 0.25);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PT Bina Sukses Capital | Management Consulting in Indonesia</title>
+<meta name="description" content="PT Bina Sukses Capital, Bali: management consulting for foreign founders and companies in Indonesia. Company setup, running a business, artificial intelligence, capital and markets.">
+<script>
+(function () {
+  var langs = ["en", "id", "ru"], l = null;
+  try { l = new URLSearchParams(location.search).get("lang"); } catch (e) {}
+  if (langs.indexOf(l) < 0) { try { l = localStorage.getItem("bsc-lang"); } catch (e) { l = null; } }
+  if (langs.indexOf(l) < 0) {
+    var n = (navigator.language || "en").toLowerCase();
+    l = n.indexOf("ru") === 0 ? "ru" : (n.indexOf("id") === 0 || n.indexOf("ms") === 0) ? "id" : "en";
+  }
+  document.documentElement.lang = l;
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PT Bina Sukses Capital",
+  "url": "https://bigbsc.com",
+  "telephone": "+62 813-5350-4430",
+  "email": "info@bigbsc.com",
+  "identifier": "NIB 0502250144033",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Adhyaksa, Dauh Puri, Denpasar Barat",
+    "addressLocality": "Denpasar",
+    "addressRegion": "Bali",
+    "postalCode": "80113",
+    "addressCountry": "ID"
+  }
+}
+</script>
+<style>
+  :root {
+    --paper: #FBFAF7;
+    --paper-2: #F3F1EB;
+    --white: #FFFFFF;
+    --ink: #1E2A2B;
+    --ink-2: #4A5559;
+    --ink-3: #7D868A;
+    --rule: #DAD6CC;
+    --rule-2: #B9B3A6;
+    --accent: #2F5D4F;
+    --serif: "Literata", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
+    --wrap: 1120px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink-2); font: 400 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3 { color: var(--ink); font-family: var(--serif); }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  /* language visibility */
+  [data-l] { display: none; }
+  html[lang="en"] [data-l="en"], html[lang="id"] [data-l="id"], html[lang="ru"] [data-l="ru"] { display: inline; }
+  html[lang="en"] :is(div,p,ul,ol)[data-l="en"],
+  html[lang="id"] :is(div,p,ul,ol)[data-l="id"],
+  html[lang="ru"] :is(div,p,ul,ol)[data-l="ru"] { display: block; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  /* header */
+  header { position: sticky; top: 0; z-index: 50; background: rgba(251,250,247,.97); border-bottom: 1px solid var(--rule); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .mark { width: 40px; height: 40px; border: 1px solid var(--ink); display: grid; place-items: center; font: 500 13.5px/1 var(--serif); letter-spacing: .12em; color: var(--ink); padding-left: .12em; flex: none; }
+  .wordmark { font: 500 20px/1 var(--serif); color: var(--ink); letter-spacing: .005em; }
+  nav.menu { display: flex; gap: 32px; }
+  nav.menu a { text-decoration: none; font-size: 14.5px; color: var(--ink-2); }
+  nav.menu a:hover { color: var(--ink); }
+  .right { display: flex; align-items: center; gap: 28px; }
+  .lang { display: flex; align-items: center; }
+  .lang button { position: relative; border: 0; background: none; cursor: pointer; font: 500 13px/1 var(--sans); letter-spacing: .1em; color: var(--ink-3); padding: 8px 12px 9px; }
+  .lang button + button::before { content: ""; position: absolute; left: 0; top: 50%; width: 1px; height: 12px; margin-top: -6px; background: var(--rule-2); }
+  .lang button:hover { color: var(--ink); }
+  .lang button[aria-pressed="true"] { color: var(--ink); }
+  .lang button[aria-pressed="true"]::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 1px; background: var(--accent); }
+  .link { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--rule-2); font-size: 15px; transition: color .2s, text-decoration-color .2s; }
+  .link:hover { color: var(--accent); text-decoration-color: var(--accent); }
+  .btn { display: inline-block; font: 500 13px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--ink); padding: 16px 26px; transition: background .2s, color .2s, border-color .2s; }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
 
-        /* ===== NAV ===== */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            padding: 1.2rem 2rem;
-            background: rgba(7, 7, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  /* hero */
+  .hero { padding: 88px 0 80px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .kicker { font: 500 12px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 24px; }
+  h1 { font-weight: 400; font-size: clamp(36px, 4vw, 50px); line-height: 1.1; letter-spacing: -.01em; margin-bottom: 26px; max-width: 620px; }
+  .sub { font-size: 18px; max-width: 580px; margin-bottom: 36px; }
+  .actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .legal-line { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--rule); font: 500 12px/1.6 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 50%; filter: saturate(.88) contrast(1.02); border: 1px solid var(--rule); }
 
-        .nav-logo {
-            font-weight: 900;
-            font-size: 1.15rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-        }
+  /* sections */
+  section { padding: 96px 0; }
+  .band-white { background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .band-2 { background: var(--paper-2); }
+  .sec-head { border-top: 1px solid var(--rule-2); padding-top: 20px; margin-bottom: 52px; display: grid; grid-template-columns: 4fr 8fr; gap: 64px; align-items: start; }
+  .sec-head .kicker { margin: 4px 0 0; }
+  h2 { font-weight: 400; font-size: 34px; line-height: 1.15; letter-spacing: -.005em; }
+  .sec-head p { margin-top: 14px; max-width: 620px; }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
+  /* services */
+  .svc { display: grid; grid-template-columns: 4fr 8fr; gap: 64px; padding: 40px 0; border-bottom: 1px solid var(--rule); }
+  .svc:first-of-type { padding-top: 8px; }
+  .svc:last-child { border-bottom: 0; }
+  .svc .no { font: 400 15px/1 var(--serif); color: var(--ink-3); margin-bottom: 14px; }
+  h3 { font-weight: 500; font-size: 22px; line-height: 1.3; margin-bottom: 10px; }
+  .svc .for { font-size: 15px; color: var(--ink-3); }
+  .svc ul { list-style: none; columns: 2; column-gap: 40px; }
+  .svc li { break-inside: avoid; padding: 0 0 14px 18px; position: relative; font-size: 16px; color: var(--ink-2); }
+  .svc li::before { content: ""; position: absolute; left: 0; top: 12px; width: 8px; height: 1px; background: var(--ink-3); }
+  .svc .fine { margin-top: 6px; font-size: 13.5px; color: var(--ink-3); max-width: 640px; }
+  .facts-idx { margin-top: 22px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: repeat(4, 1fr); }
+  .facts-idx div { padding: 16px 20px 4px 0; font-size: 14px; color: var(--ink-2); }
+  .facts-idx div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
+  .facts-idx b { display: block; font: 400 19px/1.3 var(--serif); color: var(--ink); margin-bottom: 4px; }
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+  /* path */
+  .path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .path .step { border-top: 1px solid var(--ink); padding-top: 18px; }
+  .path .no { font: 400 15px/1 var(--serif); color: var(--ink-3); margin-bottom: 16px; }
+  .path h3 { font-size: 20px; }
+  .path p { font-size: 15.5px; }
+  .note { margin-top: 36px; font-size: 14px; color: var(--ink-3); max-width: 760px; }
 
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
+  /* how we work */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 72px; }
+  .steps .step { border-top: 1px solid var(--rule-2); padding-top: 18px; }
+  .steps .no { font: 400 15px/1 var(--serif); color: var(--ink-3); margin-bottom: 16px; }
+  .steps h3 { font-size: 20px; }
+  .steps p { font-size: 15.5px; }
+  .partners { display: grid; grid-template-columns: 4fr 8fr; gap: 64px; padding-top: 40px; border-top: 1px solid var(--rule); }
+  .partners p { font-size: 16px; }
+  table.who { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.who th { text-align: left; font: 500 12px/1.4 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); padding: 0 16px 12px 0; border-bottom: 1px solid var(--rule-2); }
+  table.who td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-2); }
+  table.who td:first-child { color: var(--ink); font-weight: 500; width: 34%; }
 
-        .nav-cta {
-            background: var(--accent) !important;
-            color: white !important;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600 !important;
-            transition: all 0.3s !important;
-        }
+  /* company */
+  .company { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: start; }
+  .company .text p { margin-bottom: 16px; }
+  dl.details { display: grid; grid-template-columns: 200px 1fr; border-top: 1px solid var(--ink); }
+  dl.details dt, dl.details dd { padding: 15px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+  dl.details dt { color: var(--ink-3); padding-right: 16px; }
+  dl.details dd { color: var(--ink); }
 
-        .nav-cta:hover {
-            background: var(--accent-light) !important;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
+  /* contact */
+  .contact { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: start; }
+  .contact .sub { margin-bottom: 32px; }
+  dl.reach { display: grid; grid-template-columns: 200px 1fr; border-top: 1px solid var(--ink); }
+  dl.reach dt, dl.reach dd { padding: 17px 0; border-bottom: 1px solid var(--rule); font-size: 15.5px; }
+  dl.reach dt { color: var(--ink-3); padding-right: 16px; }
+  dl.reach dd { color: var(--ink); }
+  dl.reach a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-2); }
+  dl.reach a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
-        /* ===== HERO ===== */
-        .hero {
-            padding: 10rem 2rem 6rem 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            background: radial-gradient(circle at 50% 30%, rgba(95, 61, 196, 0.08) 0%, transparent 60%);
-        }
+  footer { border-top: 1px solid var(--rule); padding: 40px 0 48px; font-size: 13.5px; color: var(--ink-3); background: var(--paper); }
+  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .foot a { color: var(--ink-2); text-decoration: none; }
+  .foot a:hover { color: var(--accent); }
+  .foot .links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .disclaim { margin-top: 18px; max-width: 900px; }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            border-radius: 99px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-
-        .hero-badge .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--green);
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.2rem);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 1.5rem;
-            max-width: 900px;
-        }
-
-        .hero h1 .gradient {
-            background: linear-gradient(135deg, var(--accent-light) 30%, var(--green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 650px;
-            margin-bottom: 3rem;
-            font-weight: 400;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.9rem 2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-secondary);
-            transform: translateY(-2px);
-        }
-
-        /* ===== SERVICES / PILLARS ===== */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            margin-bottom: 4rem;
-            text-align: center;
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.8rem;
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .pillar-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pillar-card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px var(--accent-glow);
-        }
-
-        .pillar-icon {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        .pillar-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .pillar-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .pillar-kbli {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-light);
-            background: rgba(112, 72, 232, 0.08);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 1.5rem;
-        }
-
-        /* ===== PROTOTYPES (PORTFOLIO) ===== */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .portfolio-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s;
-        }
-
-        .portfolio-card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .portfolio-preview {
-            height: 180px;
-            position: relative;
-            overflow: hidden;
-            background: #0d0d16;
-        }
-
-        .portfolio-preview-inner {
-            width: 100%;
-            height: 300%;
-            transform: scale(0.5);
-            transform-origin: top left;
-            pointer-events: none;
-            border: none;
-        }
-
-        .portfolio-preview-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent 40%, rgba(7, 7, 10, 0.95) 100%);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .portfolio-card:hover .portfolio-preview-overlay {
-            opacity: 1;
-        }
-
-        .portfolio-preview-btn {
-            padding: 0.5rem 1.2rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .portfolio-preview-btn:hover {
-            background: var(--accent-light);
-            transform: translateY(-1px);
-        }
-
-        .portfolio-info {
-            padding: 1.2rem 1.5rem;
-        }
-
-        .portfolio-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-light);
-            margin-bottom: 0.4rem;
-        }
-
-        .portfolio-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .portfolio-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .portfolio-tech {
-            display: flex;
-            gap: 0.4rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .portfolio-tech span {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            color: var(--text-secondary);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* ===== CTA ===== */
-        .cta-section {
-            background: radial-gradient(circle at 50% 50%, rgba(95, 61, 196, 0.12) 0%, transparent 70%);
-            text-align: center;
-            padding: 6rem 2rem;
-            position: relative;
-        }
-
-        .cta-section h2 {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            font-weight: 900;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-            padding: 0.9rem 2.2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .btn-whatsapp:hover {
-            background: #22c55e;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        footer a:hover {
-            color: var(--text-primary);
-        }
-
-        footer .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        /* ===== MOBILE ===== */
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
-        }
-    </style>
+  @media (max-width: 1020px) {
+    nav.menu { display: none; }
+    .hero-grid, .company, .contact, .partners, .sec-head, .svc { grid-template-columns: 1fr; gap: 28px; }
+    .path { grid-template-columns: 1fr 1fr; }
+    .facts-idx { grid-template-columns: 1fr 1fr; }
+    .facts-idx div:nth-child(3) { padding-left: 0; border-left: 0; }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 0 20px; }
+    .bar { height: 64px; }
+    .wordmark { font-size: 17px; }
+    .mark { width: 34px; height: 34px; font-size: 12px; }
+    .right .link { display: none; }
+    .lang button { padding: 8px 9px 9px; }
+    .lang button[aria-pressed="true"]::after { left: 9px; right: 9px; }
+    .hero { padding: 48px 0 56px; }
+    section { padding: 56px 0; }
+    h2 { font-size: 28px; }
+    .svc ul { columns: 1; }
+    .path, .steps { grid-template-columns: 1fr; }
+    .facts-idx { grid-template-columns: 1fr; }
+    .facts-idx div, .facts-idx div + div { padding: 14px 0 4px; border-left: 0; }
+    dl.details, dl.reach { grid-template-columns: 1fr; }
+    dl.details dt, dl.reach dt { padding-bottom: 0; border-bottom: 0; font-size: 13px; }
+    dl.details dd, dl.reach dd { padding-top: 4px; }
+  }
+</style>
 </head>
-
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <div class="nav-logo">⚡ BINA SUKSES CAPITAL</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#pillars">Pillars</a>
-            <a href="#prototypes">Prototypes</a>
-            <a href="https://wa.me/628133836149" class="nav-cta" target="_blank">Inquire →</a>
-        </div>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Bina Sukses Capital">
+      <span class="mark" aria-hidden="true">BSC</span>
+      <span class="wordmark">Bina Sukses Capital</span>
+    </a>
+    <nav class="menu" aria-label="Main">
+      <a href="#services"><span data-l="en">Services</span><span data-l="id">Layanan</span><span data-l="ru">Услуги</span></a>
+      <a href="#work"><span data-l="en">How we work</span><span data-l="id">Cara kami bekerja</span><span data-l="ru">Как мы работаем</span></a>
+      <a href="#company"><span data-l="en">Company</span><span data-l="id">Perusahaan</span><span data-l="ru">О компании</span></a>
     </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-set="en">EN</button><button type="button" data-set="id">ID</button><button type="button" data-set="ru">RU</button>
+      </div>
+      <a class="link" href="#contact"><span data-l="en">Contact</span><span data-l="id">Kontak</span><span data-l="ru">Контакты</span></a>
+    </div>
+  </div>
+</header>
 
-    <!-- HERO -->
-    <section class="hero" id="about">
-        <div class="hero-badge">
-            <span class="dot"></span>
-            PT Bina Sukses Capital · PMA Indonesia
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker"><span data-l="en">Management consulting · Denpasar, Bali</span><span data-l="id">Konsultasi manajemen · Denpasar, Bali</span><span data-l="ru">Управленческий консалтинг · Денпасар, Бали</span></div>
+      <h1><span data-l="en">Management consulting for business in Indonesia</span><span data-l="id">Konsultasi manajemen untuk bisnis di Indonesia</span><span data-l="ru">Управленческий консалтинг для бизнеса в Индонезии</span></h1>
+      <p class="sub" data-l="en">We help foreign founders and companies choose the right structure and licences, set up and run their Indonesian company with trusted partners, and make sensible use of artificial intelligence. Independent advice; decisions remain yours.</p>
+      <p class="sub" data-l="id">Kami membantu pendiri usaha dan perusahaan asing memilih struktur dan perizinan yang tepat, mendirikan serta menjalankan perusahaan di Indonesia bersama mitra tepercaya, dan memanfaatkan kecerdasan buatan secara bijak. Saran yang independen; keputusan sepenuhnya di tangan Anda.</p>
+      <p class="sub" data-l="ru">Мы помогаем иностранным предпринимателям и компаниям выбрать правильную структуру и лицензии, открыть и вести компанию в Индонезии вместе с надёжными партнёрами и разумно применять искусственный интеллект. Независимые консультации; решения всегда за вами.</p>
+      <div class="actions">
+        <a class="btn" href="#contact"><span data-l="en">Request a consultation</span><span data-l="id">Jadwalkan konsultasi awal</span><span data-l="ru">Записаться на консультацию</span></a>
+        <a class="link" href="#services"><span data-l="en">Our services</span><span data-l="id">Layanan kami</span><span data-l="ru">Наши услуги</span></a>
+      </div>
+      <div class="legal-line">PT PMA · NIB 0502250144033 · KBLI 70209 <span data-l="en">Management consulting</span><span data-l="id">Konsultasi manajemen</span><span data-l="ru">Управленческий консалтинг</span></div>
+    </div>
+    <figure class="photo">
+      <img src="assets/office.jpg" width="1320" height="880" alt="A consultation in an office">
+    </figure>
+  </div>
+</section>
+
+<section id="services" class="band-white">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker"><span data-l="en">Services</span><span data-l="id">Layanan</span><span data-l="ru">Услуги</span></div>
+      <div>
+        <h2><span data-l="en">What we do</span><span data-l="id">Apa yang kami kerjakan</span><span data-l="ru">Чем мы занимаемся</span></h2>
+        <p data-l="en">Each engagement starts with your situation and results in a clear plan you can carry out yourself.</p>
+        <p data-l="id">Setiap penugasan berangkat dari situasi Anda dan menghasilkan rencana yang jelas dan dapat Anda jalankan sendiri.</p>
+        <p data-l="ru">Каждая работа начинается с вашей ситуации и заканчивается понятным планом, который вы можете выполнить сами.</p>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div>
+        <div class="no">01</div>
+        <h3><span data-l="en">Company setup in Indonesia</span><span data-l="id">Pendirian perusahaan di Indonesia</span><span data-l="ru">Открытие компании в Индонезии</span></h3>
+        <p class="for"><span data-l="en">For foreign founders entering Indonesia.</span><span data-l="id">Bagi pendiri usaha asing yang masuk ke Indonesia.</span><span data-l="ru">Для иностранных предпринимателей, которые выходят на рынок Индонезии.</span></p>
+      </div>
+      <div>
+        <ul data-l="en">
+          <li>Choosing the business direction and the right KBLI codes</li>
+          <li>Choosing a business structure; why nominee arrangements put a business at risk</li>
+          <li>Capital and investment requirements for a PT PMA</li>
+          <li>Licensing through OSS and the business identification number (NIB)</li>
+          <li>Registration together with our licensing partner, under our coordination</li>
+        </ul>
+        <ul data-l="id">
+          <li>Menentukan arah usaha dan kode KBLI yang tepat</li>
+          <li>Memilih struktur usaha; mengapa perjanjian pinjam nama (nominee) berisiko bagi bisnis</li>
+          <li>Ketentuan modal dan nilai investasi untuk PT PMA</li>
+          <li>Perizinan melalui OSS dan Nomor Induk Berusaha (NIB)</li>
+          <li>Pendaftaran bersama mitra perizinan kami, dengan koordinasi dari kami</li>
+        </ul>
+        <ul data-l="ru">
+          <li>Выбор направления бизнеса и подходящих кодов KBLI</li>
+          <li>Выбор структуры бизнеса; почему номинальные схемы опасны</li>
+          <li>Требования к капиталу и объёму инвестиций для PT PMA</li>
+          <li>Лицензирование через систему OSS и регистрационный номер NIB</li>
+          <li>Регистрация вместе с нашим партнёром по лицензированию, под нашей координацией</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div>
+        <div class="no">02</div>
+        <h3><span data-l="en">Running a business in Indonesia</span><span data-l="id">Menjalankan bisnis di Indonesia</span><span data-l="ru">Ведение бизнеса в Индонезии</span></h3>
+        <p class="for"><span data-l="en">For owners of operating companies.</span><span data-l="id">Bagi pemilik perusahaan yang sudah beroperasi.</span><span data-l="ru">Для владельцев действующих компаний.</span></p>
+      </div>
+      <div>
+        <ul data-l="en">
+          <li>Accounting and tax with our partner accountant</li>
+          <li>Investment activity reports (LKPM) and other regular obligations</li>
+          <li>Hiring staff and employer obligations</li>
+          <li>Residence permits for investors and directors: stages and timing</li>
+          <li>Cost control and a clear monthly view of the business</li>
+        </ul>
+        <ul data-l="id">
+          <li>Akuntansi dan perpajakan bersama mitra akuntan kami</li>
+          <li>Laporan Kegiatan Penanaman Modal (LKPM) dan kewajiban berkala lainnya</li>
+          <li>Rekrutmen karyawan dan kewajiban pemberi kerja</li>
+          <li>Izin tinggal untuk investor dan direktur: tahapan dan perkiraan waktu</li>
+          <li>Pengendalian biaya dan gambaran bulanan yang jelas tentang bisnis</li>
+        </ul>
+        <ul data-l="ru">
+          <li>Бухгалтерия и налоги вместе с нашим партнёром-бухгалтером</li>
+          <li>Отчёты об инвестициях (LKPM) и другие регулярные обязанности</li>
+          <li>Подбор персонала и обязанности работодателя</li>
+          <li>ВНЖ для инвесторов и директоров: этапы и сроки</li>
+          <li>Контроль расходов и понятная ежемесячная картина бизнеса</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div>
+        <div class="no">03</div>
+        <h3><span data-l="en">Artificial intelligence in business</span><span data-l="id">Kecerdasan buatan dalam bisnis</span><span data-l="ru">Искусственный интеллект в бизнесе</span></h3>
+        <p class="for"><span data-l="en">For companies that want AI where it earns its cost.</span><span data-l="id">Bagi perusahaan yang ingin memanfaatkan AI pada proses yang benar-benar memberi hasil.</span><span data-l="ru">Для компаний, которые хотят применять ИИ там, где он окупается.</span></p>
+      </div>
+      <div>
+        <ul data-l="en">
+          <li>Finding the processes where AI saves time and money</li>
+          <li>Choosing tools and providers</li>
+          <li>Data protection under the Personal Data Protection Law (UU PDP)</li>
+          <li>Pilot projects and training for your team</li>
+        </ul>
+        <ul data-l="id">
+          <li>Menemukan proses yang dapat menghemat waktu dan biaya dengan AI</li>
+          <li>Memilih alat dan penyedia layanan</li>
+          <li>Pelindungan data sesuai Undang-Undang Pelindungan Data Pribadi (UU PDP)</li>
+          <li>Proyek percontohan dan pelatihan untuk tim Anda</li>
+        </ul>
+        <ul data-l="ru">
+          <li>Поиск процессов, где ИИ экономит время и деньги</li>
+          <li>Выбор инструментов и поставщиков</li>
+          <li>Защита данных по закону о персональных данных (UU PDP)</li>
+          <li>Пилотные проекты и обучение команды</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div>
+        <div class="no">04</div>
+        <h3><span data-l="en">Capital and financial markets</span><span data-l="id">Modal dan pasar keuangan</span><span data-l="ru">Капитал и финансовые рынки</span></h3>
+        <p class="for"><span data-l="en">For business owners managing their own capital.</span><span data-l="id">Bagi pemilik bisnis yang mengelola modalnya sendiri.</span><span data-l="ru">Для владельцев бизнеса, которые сами управляют своим капиталом.</span></p>
+      </div>
+      <div>
+        <ul data-l="en">
+          <li>Risk-management principles for a business owner's own capital</li>
+          <li>How exchanges and listed markets work, and what they cost</li>
+          <li>The Indonesian stock market (IDX): structure, rules and who can take part</li>
+        </ul>
+        <ul data-l="id">
+          <li>Prinsip manajemen risiko untuk modal milik pemilik bisnis</li>
+          <li>Cara kerja bursa dan pasar modal, serta biayanya</li>
+          <li>Pasar saham Indonesia (BEI/IDX): struktur, aturan, dan siapa yang dapat berpartisipasi</li>
+        </ul>
+        <ul data-l="ru">
+          <li>Принципы управления риском для собственного капитала владельца бизнеса</li>
+          <li>Как устроены биржи и публичные рынки и во что обходится участие</li>
+          <li>Фондовый рынок Индонезии (IDX): устройство, правила и кто может участвовать</li>
+        </ul>
+        <div class="facts-idx">
+          <div><b><span data-l="en">Who can invest</span><span data-l="id">Siapa yang dapat berinvestasi</span><span data-l="ru">Кто может участвовать</span></b><span data-l="en">Indonesian and foreign investors, through a member securities company</span><span data-l="id">Investor Indonesia dan asing, melalui perusahaan efek anggota bursa</span><span data-l="ru">Индонезийские и иностранные инвесторы через брокера, члена биржи</span></div>
+          <div><b>SID · KSEI</b><span data-l="en">Each investor is registered at the central depository</span><span data-l="id">Setiap investor terdaftar di lembaga penyimpanan sentral</span><span data-l="ru">Каждый инвестор регистрируется в центральном депозитарии</span></div>
+          <div><b><span data-l="en">1 lot = 100 shares</span><span data-l="id">1 lot = 100 saham</span><span data-l="ru">1 лот = 100 акций</span></b><span data-l="en">Regular market trades settle on T+2</span><span data-l="id">Transaksi pasar reguler diselesaikan pada T+2</span><span data-l="ru">Расчёты на основном рынке в режиме T+2</span></div>
+          <div><b>Tbk</b><span data-l="en">Suffix of listed companies; reports are published on the exchange website</span><span data-l="id">Sebutan perusahaan tercatat; laporan dipublikasikan di situs bursa</span><span data-l="ru">Приставка публичных компаний; отчётность публикуется на сайте биржи</span></div>
         </div>
-        <h1>
-            Engineering <span class="gradient">efficiency</span>.<br>
-            Empowering decisions.
-        </h1>
-        <p>
-            Custom quantitative software, strategic management consulting, and fintech solutions built to automate complexity and drive performance.
-        </p>
-        <div class="hero-buttons">
-            <a href="#pillars" class="btn btn-primary">Core Pillars</a>
-            <a href="#prototypes" class="btn btn-secondary">Interactive Demos</a>
-        </div>
-    </section>
+        <p class="fine" data-l="en">Educational and advisory only. Brokerage, investment advice and fund management are OJK-licensed activities, which we do not perform.</p>
+        <p class="fine" data-l="id">Bersifat edukasi dan konsultasi. Kegiatan perantara pedagang efek, penasihat investasi, dan manajer investasi memerlukan izin OJK dan tidak kami lakukan.</p>
+        <p class="fine" data-l="ru">Только обучение и консультации. Брокерская деятельность, инвестиционное консультирование и доверительное управление лицензируются OJK, и мы ими не занимаемся.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- PILLARS -->
-    <section id="pillars">
-        <div class="section-header">
-            <h2>Core Areas of Expertise</h2>
-            <p>Providing compliant and technology-driven operations under Indonesian business regulations.</p>
-        </div>
-        <div class="pillars-grid">
-            <!-- Software Engineering -->
-            <div class="pillar-card">
-                <span class="pillar-icon">💻</span>
-                <h3>Software Development</h3>
-                <p>
-                    Designing and maintaining custom quantitative algorithms, corporate dashboards, data pipelines, and workflow automations. We build clean-room systems that replace manual overhead with high-performance bots.
-                </p>
-                <div class="pillar-kbli">KBLI 62019 · Computer Programming</div>
-            </div>
+<section id="path" class="band-2">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker"><span data-l="en">Indonesia</span><span data-l="id">Indonesia</span><span data-l="ru">Индонезия</span></div>
+      <div>
+        <h2><span data-l="en">Setting up in Indonesia: the path</span><span data-l="id">Mendirikan usaha di Indonesia: tahapannya</span><span data-l="ru">Открытие бизнеса в Индонезии: этапы</span></h2>
+        <p data-l="en">The usual route of a foreign-owned company, from the first idea to the first year of operation.</p>
+        <p data-l="id">Jalur yang umum ditempuh perusahaan milik asing, dari gagasan awal hingga tahun pertama beroperasi.</p>
+        <p data-l="ru">Обычный путь компании с иностранным капиталом: от первой идеи до первого года работы.</p>
+      </div>
+    </div>
+    <div class="path">
+      <div class="step">
+        <div class="no">01</div>
+        <h3><span data-l="en">Direction and KBLI</span><span data-l="id">Arah usaha dan KBLI</span><span data-l="ru">Направление и KBLI</span></h3>
+        <p data-l="en">What the company will do, and which five-digit KBLI codes are open to foreign investment.</p>
+        <p data-l="id">Kegiatan yang akan dijalankan dan kode KBLI lima digit yang terbuka bagi penanaman modal asing.</p>
+        <p data-l="ru">Чем будет заниматься компания и какие пятизначные коды KBLI открыты для иностранных инвестиций.</p>
+      </div>
+      <div class="step">
+        <div class="no">02</div>
+        <h3><span data-l="en">Structure and capital</span><span data-l="id">Struktur dan modal</span><span data-l="ru">Структура и капитал</span></h3>
+        <p data-l="en">Shareholders, directors and capital within the thresholds set by BKPM. We confirm the current figures for your KBLI.</p>
+        <p data-l="id">Pemegang saham, direksi, dan modal sesuai batas yang ditetapkan BKPM. Kami memastikan angka terbaru untuk KBLI Anda.</p>
+        <p data-l="ru">Учредители, директора и капитал в пределах порогов, установленных BKPM. Актуальные цифры для вашего KBLI мы уточняем.</p>
+      </div>
+      <div class="step">
+        <div class="no">03</div>
+        <h3><span data-l="en">OSS, NIB and licences</span><span data-l="id">OSS, NIB, dan perizinan</span><span data-l="ru">OSS, NIB и лицензии</span></h3>
+        <p data-l="en">Deed of establishment, ministry approval, tax number and NIB through the OSS system.</p>
+        <p data-l="id">Akta pendirian, pengesahan kementerian, NPWP, dan NIB melalui sistem OSS.</p>
+        <p data-l="ru">Учредительный акт, утверждение министерства, налоговый номер и NIB через систему OSS.</p>
+      </div>
+      <div class="step">
+        <div class="no">04</div>
+        <h3><span data-l="en">The first year</span><span data-l="id">Tahun pertama</span><span data-l="ru">Первый год</span></h3>
+        <p data-l="en">LKPM reports, tax reporting, residence permits and the first staff.</p>
+        <p data-l="id">Laporan LKPM, pelaporan pajak, izin tinggal, dan karyawan pertama.</p>
+        <p data-l="ru">Отчёты LKPM, налоговая отчётность, ВНЖ и первые сотрудники.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <!-- Management Consultancy -->
-            <div class="pillar-card">
-                <span class="pillar-icon">🧠</span>
-                <h3>Management Consulting</h3>
-                <p>
-                    Operational restructuring, local entity compliance setup, workflow architecture, and business process automation audits designed for modern enterprises navigating international environments.
-                </p>
-                <div class="pillar-kbli">KBLI 70209 · Business Consultancy</div>
-            </div>
+<section id="work" class="band-white">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker"><span data-l="en">How we work</span><span data-l="id">Cara kami bekerja</span><span data-l="ru">Как мы работаем</span></div>
+      <div>
+        <h2><span data-l="en">Three steps, agreed in writing</span><span data-l="id">Tiga langkah, disepakati secara tertulis</span><span data-l="ru">Три шага, согласованные письменно</span></h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="no">01</div>
+        <h3><span data-l="en">Initial consultation</span><span data-l="id">Konsultasi awal</span><span data-l="ru">Первичная консультация</span></h3>
+        <p data-l="en">You describe your situation. We say whether your question is within our scope.</p>
+        <p data-l="id">Anda menjelaskan situasi Anda. Kami menyampaikan apakah pertanyaan Anda termasuk dalam lingkup layanan kami.</p>
+        <p data-l="ru">Вы описываете ситуацию. Мы говорим, входит ли ваш вопрос в нашу компетенцию.</p>
+      </div>
+      <div class="step">
+        <div class="no">02</div>
+        <h3><span data-l="en">Written proposal</span><span data-l="id">Penawaran tertulis</span><span data-l="ru">Письменное предложение</span></h3>
+        <p data-l="en">Scope, timing and fee are agreed in writing before any work begins.</p>
+        <p data-l="id">Ruang lingkup, waktu, dan biaya disepakati secara tertulis sebelum pekerjaan dimulai.</p>
+        <p data-l="ru">Объём, сроки и стоимость согласуются письменно до начала работы.</p>
+      </div>
+      <div class="step">
+        <div class="no">03</div>
+        <h3><span data-l="en">Consulting and follow-up</span><span data-l="id">Konsultasi dan tindak lanjut</span><span data-l="ru">Консультации и сопровождение</span></h3>
+        <p data-l="en">Meetings, written materials and a clear plan. Decisions remain yours.</p>
+        <p data-l="id">Pertemuan, materi tertulis, dan rencana yang jelas. Keputusan sepenuhnya di tangan Anda.</p>
+        <p data-l="ru">Встречи, письменные материалы и понятный план. Решения всегда за вами.</p>
+      </div>
+    </div>
 
-            <!-- Quantitative Education -->
-            <div class="pillar-card">
-                <span class="pillar-icon">📊</span>
-                <h3>Education Services</h3>
-                <p>
-                    Curating specialized training modules in quantitative trading, financial risk management frameworks, and programming for automated finance systems.
-                </p>
-                <div class="pillar-kbli">KBLI 85499 · Other Education Services</div>
-            </div>
-        </div>
-    </section>
+    <div class="partners">
+      <div>
+        <h3><span data-l="en">Who does what</span><span data-l="id">Pembagian peran</span><span data-l="ru">Кто что делает</span></h3>
+        <p data-l="en">Registration, visas, accounting and notarial work are performed by licensed partners. We define the scope, introduce you, coordinate the work and remain your single point of contact. Each partner contracts with you directly. You work with the founder of the company in person, not with junior staff.</p>
+        <p data-l="id">Pendaftaran, visa, akuntansi, dan pekerjaan kenotariatan dilakukan oleh mitra yang berizin. Kami menentukan ruang lingkup, memperkenalkan Anda, mengoordinasikan pekerjaan, dan tetap menjadi satu titik kontak Anda. Setiap mitra membuat perjanjian langsung dengan Anda. Anda bekerja langsung dengan pendiri perusahaan, bukan dengan staf junior.</p>
+        <p data-l="ru">Регистрацию, визы, бухгалтерию и нотариальные действия выполняют лицензированные партнёры. Мы определяем задачу, знакомим вас с партнёром, координируем работу и остаёмся вашим единым контактом. Договор каждый партнёр заключает с вами напрямую. Вы работаете лично с основателем компании, а не с младшими сотрудниками.</p>
+      </div>
+      <table class="who">
+        <thead>
+          <tr>
+            <th><span data-l="en">Area</span><span data-l="id">Bidang</span><span data-l="ru">Область</span></th>
+            <th><span data-l="en">Performed by</span><span data-l="id">Dilaksanakan oleh</span><span data-l="ru">Кто выполняет</span></th>
+            <th>Bina Sukses Capital</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-l="en">Licensing and visas</span><span data-l="id">Perizinan dan visa</span><span data-l="ru">Лицензии и визы</span></td>
+            <td><span data-l="en">Licensed partner agent</span><span data-l="id">Agen mitra berizin</span><span data-l="ru">Лицензированный агент-партнёр</span></td>
+            <td><span data-l="en">Scope, coordination, review</span><span data-l="id">Lingkup, koordinasi, peninjauan</span><span data-l="ru">Задача, координация, проверка</span></td>
+          </tr>
+          <tr>
+            <td><span data-l="en">Accounting and tax</span><span data-l="id">Akuntansi dan pajak</span><span data-l="ru">Бухгалтерия и налоги</span></td>
+            <td><span data-l="en">Partner accountant</span><span data-l="id">Akuntan mitra</span><span data-l="ru">Бухгалтер-партнёр</span></td>
+            <td><span data-l="en">Scope, coordination, review</span><span data-l="id">Lingkup, koordinasi, peninjauan</span><span data-l="ru">Задача, координация, проверка</span></td>
+          </tr>
+          <tr>
+            <td><span data-l="en">Notarial deeds</span><span data-l="id">Akta notaris</span><span data-l="ru">Нотариальные акты</span></td>
+            <td><span data-l="en">Notary, arranged via our licensing partner</span><span data-l="id">Notaris, melalui mitra perizinan kami</span><span data-l="ru">Нотариус через нашего партнёра по лицензированию</span></td>
+            <td><span data-l="en">Scope, coordination, review</span><span data-l="id">Lingkup, koordinasi, peninjauan</span><span data-l="ru">Задача, координация, проверка</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
-    <!-- PROTOTYPES (PORTFOLIO) -->
-    <section id="prototypes">
-        <div class="section-header">
-            <h2>Interactive Prototypes</h2>
-            <p>Live demonstrations of custom dashboards and bot architectures designed by our engineering team.</p>
-        </div>
-        <div class="portfolio-grid">
-            <!-- Cafe Dashboard -->
-            <div class="portfolio-card">
-                <div class="portfolio-preview">
-                    <iframe src="demos/cafe_dashboard.html" class="portfolio-preview-inner" scrolling="no"></iframe>
-                    <div class="portfolio-preview-overlay">
-                        <a href="demos/cafe_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo</a>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <div class="portfolio-tag">IT / KBLI 62019</div>
-                    <h3>Cafe & Retail Cockpit</h3>
-                    <p>Real-time telemetry, transaction metrics, and operations dashboard for F&B establishments.</p>
-                    <div class="portfolio-tech">
-                        <span>HTML5</span>
-                        <span>Tailwind</span>
-                        <span>Vanilla JS</span>
-                    </div>
-                </div>
-            </div>
+<section id="company" class="band-2">
+  <div class="wrap company">
+    <div class="text">
+      <div class="kicker"><span data-l="en">Company</span><span data-l="id">Perusahaan</span><span data-l="ru">О компании</span></div>
+      <h2 style="margin-bottom:20px">PT Bina Sukses Capital</h2>
+      <p data-l="en">A management consulting company with foreign investment, established in Indonesia in January 2025 and based in Bali. We work with founders, investors and companies in Indonesia and abroad, in English, Indonesian and Russian.</p>
+      <p data-l="id">Perusahaan konsultasi manajemen dengan penanaman modal asing, didirikan di Indonesia pada Januari 2025 dan berkedudukan di Bali. Kami bekerja dengan pendiri usaha, investor, dan perusahaan di Indonesia maupun luar negeri, dalam bahasa Indonesia, Inggris, dan Rusia.</p>
+      <p data-l="ru">Компания управленческого консалтинга с иностранными инвестициями, основана в Индонезии в январе 2025 года, работает на Бали. Мы работаем с предпринимателями, инвесторами и компаниями в Индонезии и за рубежом на русском, английском и индонезийском языках.</p>
+    </div>
+    <dl class="details">
+      <dt><span data-l="en">Legal name</span><span data-l="id">Nama badan usaha</span><span data-l="ru">Название</span></dt>
+      <dd>PT Bina Sukses Capital</dd>
+      <dt><span data-l="en">Status</span><span data-l="id">Status</span><span data-l="ru">Статус</span></dt>
+      <dd><span data-l="en">PT PMA, foreign investment company</span><span data-l="id">PT PMA, penanaman modal asing</span><span data-l="ru">PT PMA, компания с иностранными инвестициями</span></dd>
+      <dt>NIB</dt>
+      <dd>0502250144033</dd>
+      <dt><span data-l="en">Activity</span><span data-l="id">Kegiatan usaha</span><span data-l="ru">Вид деятельности</span></dt>
+      <dd>KBLI 70209 · <span data-l="en">Other management consulting activities</span><span data-l="id">Aktivitas Konsultasi Manajemen Lainnya</span><span data-l="ru">Прочий управленческий консалтинг</span></dd>
+      <dt><span data-l="en">Registered office</span><span data-l="id">Alamat kantor</span><span data-l="ru">Юридический адрес</span></dt>
+      <dd>Jl. Adhyaksa, Dauh Puri, Denpasar Barat, Kota Denpasar, Bali 80113, Indonesia</dd>
+      <dt><span data-l="en">Established</span><span data-l="id">Didirikan</span><span data-l="ru">Основана</span></dt>
+      <dd><span data-l="en">January 2025</span><span data-l="id">Januari 2025</span><span data-l="ru">Январь 2025</span></dd>
+    </dl>
+  </div>
+</section>
 
-            <!-- Villa Dashboard -->
-            <div class="portfolio-card">
-                <div class="portfolio-preview">
-                    <iframe src="demos/villa_dashboard.html" class="portfolio-preview-inner" scrolling="no"></iframe>
-                    <div class="portfolio-preview-overlay">
-                        <a href="demos/villa_dashboard.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo</a>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <div class="portfolio-tag">IT / KBLI 62019</div>
-                    <h3>Villa Management Hub</h3>
-                    <p>Occupancy tracking, maintenance scheduling, and financial summary dashboard for properties.</p>
-                    <div class="portfolio-tech">
-                        <span>HTML5</span>
-                        <span>CSS3</span>
-                        <span>JS Charting</span>
-                    </div>
-                </div>
-            </div>
+<section id="contact">
+  <div class="wrap contact">
+    <div>
+      <div class="kicker"><span data-l="en">Contact</span><span data-l="id">Kontak</span><span data-l="ru">Контакты</span></div>
+      <h2 style="margin-bottom:18px"><span data-l="en">Get in touch</span><span data-l="id">Hubungi kami</span><span data-l="ru">Свяжитесь с нами</span></h2>
+      <p class="sub" data-l="en">Tell us briefly about your company and your question. We reply in English, Indonesian or Russian.</p>
+      <p class="sub" data-l="id">Ceritakan secara singkat tentang perusahaan dan pertanyaan Anda. Kami membalas dalam bahasa Indonesia, Inggris, atau Rusia.</p>
+      <p class="sub" data-l="ru">Коротко расскажите о компании и вашем вопросе. Мы ответим на русском, английском или индонезийском.</p>
+      <a class="btn" href="mailto:info@bigbsc.com"><span data-l="en">Write to us</span><span data-l="id">Kirim pesan</span><span data-l="ru">Написать нам</span></a>
+    </div>
+    <dl class="reach">
+      <dt>Email</dt>
+      <dd><a href="mailto:info@bigbsc.com">info@bigbsc.com</a></dd>
+      <dt><span data-l="en">Phone</span><span data-l="id">Telepon</span><span data-l="ru">Телефон</span></dt>
+      <dd><a href="tel:+6281353504430">+62 813-5350-4430</a></dd>
+      <dt>WhatsApp</dt>
+      <dd><a href="https://wa.me/6281353504430" target="_blank" rel="noopener">+62 813-5350-4430</a></dd>
+      <dt><span data-l="en">Registered office</span><span data-l="id">Alamat kantor</span><span data-l="ru">Юридический адрес</span></dt>
+      <dd>Jl. Adhyaksa, Dauh Puri, Denpasar Barat, Kota Denpasar, Bali 80113</dd>
+      <dt><span data-l="en">Languages</span><span data-l="id">Bahasa</span><span data-l="ru">Языки</span></dt>
+      <dd><span data-l="en">English, Indonesian, Russian</span><span data-l="id">Indonesia, Inggris, Rusia</span><span data-l="ru">Русский, английский, индонезийский</span></dd>
+    </dl>
+  </div>
+</section>
 
-            <!-- Review Bot -->
-            <div class="portfolio-card">
-                <div class="portfolio-preview">
-                    <iframe src="demos/review_bot_demo.html" class="portfolio-preview-inner" scrolling="no"></iframe>
-                    <div class="portfolio-preview-overlay">
-                        <a href="demos/review_bot_demo.html" class="portfolio-preview-btn" target="_blank">🔗 Live Demo</a>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <div class="portfolio-tag">IT / KBLI 62019</div>
-                    <h3>AI Feedback Engine</h3>
-                    <p>Automated customer sentiment analysis and review processing console.</p>
-                    <div class="portfolio-tech">
-                        <span>Automation</span>
-                        <span>Semantic Analysis</span>
-                        <span>JSON API</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+</main>
 
-    <!-- CTA -->
-    <section class="cta-section">
-        <h2>Discuss Your Project</h2>
-        <p>
-            Get in touch with our team to discuss custom integrations, strategic consulting, or proprietary software projects.
-        </p>
-        <a href="https://wa.me/628133836149" class="btn-whatsapp" target="_blank">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                    d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.26C8.13 12.42 9.76 15.07 12.33 16.09C14.47 16.93 14.9 16.77 15.36 16.73C15.82 16.69 16.84 16.13 17.05 15.54C17.26 14.95 17.26 14.44 17.2 14.34C17.14 14.24 16.97 14.19 16.72 14.06C16.47 13.93 15.24 13.33 15 13.24C14.78 13.15 14.61 13.11 14.45 13.33C14.28 13.56 13.8 14.13 13.65 14.3C13.5 14.46 13.35 14.49 13.1 14.36C12.4 14 11.47 13.7 10.37 12.72C9.52 11.96 8.94 11 8.78 10.74C8.61 10.49 8.76 10.35 8.9 10.21C9.03 10.08 9.19 9.87 9.32 9.71C9.45 9.56 9.5 9.43 9.58 9.26C9.67 9.1 9.62 8.94 9.58 8.81C9.67 9.1 9.62 8.94 9.58 8.81C9.54 8.68 9.03 7.42 8.82 6.92C8.61 6.42 8.4 6.49 8.25 6.49C8.1 6.49 7.93 6.49 7.76 6.49" />
-            </svg>
-            Send WhatsApp Message
-        </a>
-    </section>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>© 2025–2026 PT Bina Sukses Capital · NIB 0502250144033 · KBLI 70209 · Bali, Indonesia</div>
+      <div class="links">
+        <a href="#services"><span data-l="en">Services</span><span data-l="id">Layanan</span><span data-l="ru">Услуги</span></a>
+        <a href="#company"><span data-l="en">Company</span><span data-l="id">Perusahaan</span><span data-l="ru">О компании</span></a>
+        <a href="privacy.html"><span data-l="en">Privacy policy</span><span data-l="id">Kebijakan privasi</span><span data-l="ru">Политика конфиденциальности</span></a>
+      </div>
+    </div>
+    <p class="disclaim" data-l="en">PT Bina Sukses Capital provides management consulting (KBLI 70209). It does not provide legal services, investment advice, brokerage or fund management, which are licensed activities in Indonesia.</p>
+    <p class="disclaim" data-l="id">PT Bina Sukses Capital memberikan jasa konsultasi manajemen (KBLI 70209). Kami tidak memberikan jasa hukum, nasihat investasi, jasa perantara pedagang efek, atau pengelolaan dana, yang merupakan kegiatan berizin di Indonesia.</p>
+    <p class="disclaim" data-l="ru">PT Bina Sukses Capital оказывает услуги управленческого консалтинга (KBLI 70209). Компания не оказывает юридических услуг, не даёт инвестиционных рекомендаций, не занимается брокерской деятельностью и управлением активами: в Индонезии это лицензируемые виды деятельности.</p>
+  </div>
+</footer>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-links">
-            <a href="#about">About</a>
-            <a href="#pillars">Pillars</a>
-            <a href="#prototypes">Prototypes</a>
-            <a href="privacy.html">Privacy Policy</a>
-        </div>
-        <p>© 2026 PT Bina Sukses Capital · Bali, Indonesia · KBLI 62019, 70209, 85499</p>
-    </footer>
-
+<script>
+(function () {
+  var titles = {
+    en: "PT Bina Sukses Capital | Management Consulting in Indonesia",
+    id: "PT Bina Sukses Capital | Konsultasi Manajemen di Indonesia",
+    ru: "PT Bina Sukses Capital | Управленческий консалтинг в Индонезии"
+  };
+  var descs = {
+    en: "PT Bina Sukses Capital, Bali: management consulting for foreign founders and companies in Indonesia. Company setup, running a business, artificial intelligence, capital and markets.",
+    id: "PT Bina Sukses Capital, Bali: konsultasi manajemen bagi pendiri usaha dan perusahaan asing di Indonesia. Pendirian perusahaan, menjalankan bisnis, kecerdasan buatan, modal dan pasar keuangan.",
+    ru: "PT Bina Sukses Capital, Бали: управленческий консалтинг для иностранных предпринимателей и компаний в Индонезии. Открытие компании, ведение бизнеса, искусственный интеллект, капитал и рынки."
+  };
+  var buttons = document.querySelectorAll(".lang button");
+  function apply(l) {
+    document.documentElement.lang = l;
+    document.title = titles[l];
+    var m = document.querySelector('meta[name="description"]');
+    if (m) m.setAttribute("content", descs[l]);
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("aria-pressed", buttons[i].getAttribute("data-set") === l ? "true" : "false");
+    }
+  }
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function () {
+      var l = this.getAttribute("data-set");
+      apply(l);
+      try { localStorage.setItem("bsc-lang", l); } catch (e) {}
+      try { var u = new URL(location.href); u.searchParams.delete("lang"); history.replaceState(null, "", u); } catch (e) {}
+    });
+  }
+  apply(document.documentElement.lang);
+})();
+</script>
 </body>
-
 </html>
