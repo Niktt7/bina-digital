@@ -166,6 +166,17 @@
   dl.reach a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-2); }
   dl.reach a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
+  .pick { max-width: 420px; }
+  .pick .btn { cursor: pointer; background: none; }
+  .pick .btn[aria-expanded="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .pick-menu { margin-top: 14px; border-top: 1px solid var(--ink); }
+  .pick-menu[hidden] { display: none; }
+  .pick-menu a, .pick-menu button { display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; padding: 15px 2px; border: 0; border-bottom: 1px solid var(--rule); background: none; font: 400 15.5px/1.4 var(--sans); color: var(--ink); text-decoration: none; text-align: left; cursor: pointer; }
+  .pick-menu a:hover, .pick-menu button:hover { color: var(--accent); }
+  .pick-menu i { font-style: normal; color: var(--ink-3); }
+  .pick-menu .t-done { display: none; color: var(--accent); }
+  .pick-menu button.done .t-copy { display: none; }
+  .pick-menu button.done .t-done { display: inline; }
   footer { border-top: 1px solid var(--rule); padding: 40px 0 48px; font-size: 13.5px; color: var(--ink-3); background: var(--paper); }
   .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
   .foot a { color: var(--ink-2); text-decoration: none; }
@@ -530,7 +541,15 @@
       <p class="sub" data-l="en">Tell us briefly about your company and your question. We reply in English, Indonesian or Russian.</p>
       <p class="sub" data-l="id">Ceritakan secara singkat tentang perusahaan dan pertanyaan Anda. Kami membalas dalam bahasa Indonesia, Inggris, atau Rusia.</p>
       <p class="sub" data-l="ru">Коротко расскажите о компании и вашем вопросе. Мы ответим на русском, английском или индонезийском.</p>
-      <a class="btn" href="mailto:info@bigbsc.com"><span data-l="en">Write to us</span><span data-l="id">Kirim pesan</span><span data-l="ru">Написать нам</span></a>
+      <div class="pick">
+        <button class="btn" type="button" id="writeBtn" aria-expanded="false" aria-controls="writeMenu"><span data-l="en">Write to us</span><span data-l="id">Kirim pesan</span><span data-l="ru">Написать нам</span></button>
+        <div class="pick-menu" id="writeMenu" hidden>
+          <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=info@bigbsc.com" target="_blank" rel="noopener"><span><span data-l="en">Write in Gmail</span><span data-l="id">Tulis lewat Gmail</span><span data-l="ru">Написать через Gmail</span></span><i>→</i></a>
+          <a href="mailto:info@bigbsc.com"><span><span data-l="en">Open my mail app</span><span data-l="id">Buka aplikasi email</span><span data-l="ru">Открыть почтовую программу</span></span><i>→</i></a>
+          <button type="button" id="copyMail"><span class="t-copy"><span data-l="en">Copy the address info@bigbsc.com</span><span data-l="id">Salin alamat info@bigbsc.com</span><span data-l="ru">Скопировать адрес info@bigbsc.com</span></span><span class="t-done"><span data-l="en">Copied</span><span data-l="id">Tersalin</span><span data-l="ru">Скопировано</span></span><i>⧉</i></button>
+          <a href="https://wa.me/6281353504430" target="_blank" rel="noopener"><span>WhatsApp</span><i>→</i></a>
+        </div>
+      </div>
     </div>
     <dl class="reach">
       <dt>Email</dt>
@@ -596,6 +615,32 @@
     });
   }
   apply(document.documentElement.lang);
+
+  var writeBtn = document.getElementById("writeBtn"), writeMenu = document.getElementById("writeMenu");
+  if (writeBtn && writeMenu) {
+    writeBtn.addEventListener("click", function () {
+      var open = writeMenu.hasAttribute("hidden");
+      if (open) writeMenu.removeAttribute("hidden"); else writeMenu.setAttribute("hidden", "");
+      writeBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  var copyBtn = document.getElementById("copyMail");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function () {
+      var addr = "info@bigbsc.com";
+      function done() { copyBtn.classList.add("done"); setTimeout(function () { copyBtn.classList.remove("done"); }, 2500); }
+      function fallback() {
+        var t = document.createElement("textarea");
+        t.value = addr; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+        document.body.appendChild(t); t.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(t); done();
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(addr).then(done, fallback);
+      } else { fallback(); }
+    });
+  }
 })();
 </script>
 </body>
